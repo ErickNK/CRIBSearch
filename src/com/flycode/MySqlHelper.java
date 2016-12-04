@@ -41,6 +41,36 @@ public class MySqlHelper {
         
     }
     
+    public void deleteRecord(DataParser data){
+        try{
+            Statement stmt=con.createStatement();
+           
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+    }
+    
+    public void UpdateRecord(DataParser data){
+        try{
+            Statement stmt=con.createStatement();
+           
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+    }
+    
+    public void ListRecord(DataParser data){
+        try{
+            Statement stmt=con.createStatement();
+           
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+    }
+    
     //Setters
     public void setUsername(String Username) {
         this.Username = Username;
