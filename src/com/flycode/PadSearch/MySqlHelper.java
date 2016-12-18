@@ -68,6 +68,9 @@ public class MySqlHelper {
      * NOTE: the where clause must be given in string format. If omitted then
      * all the recodes will be updated, some may be updated to empty values.
      *
+     * @param data Of DatFeeder class type used to parse data to table
+     * @param where sql where clause to specify the record to update.
+     *
      * * */
     public void UpdateRecord(DatFeeder data, String where){
         this.data = data;

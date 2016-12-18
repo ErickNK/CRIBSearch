@@ -18,4 +18,7 @@ public class Constants {
     protected final String ID_Column = "ID";
     protected final String Bio_Column = "Bio";
 
+
+    //TODO: make it possible for constants class updatable when new tables are formed
+
 }

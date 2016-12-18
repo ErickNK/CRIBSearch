@@ -70,6 +70,7 @@ public class mainActivityController extends DbUtil implements Initializable {
     }
 
     private void fillComboBox() {
+        //TODO: change to use the MySQLHelper class instead of DbUtil
         resultSet = doSelect("show tables");
         if (resultSet != null) try {
             while (resultSet.next()) {
