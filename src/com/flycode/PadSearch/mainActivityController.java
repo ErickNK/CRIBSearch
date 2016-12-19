@@ -70,7 +70,7 @@ public class mainActivityController extends DbUtil implements Initializable {
 
     private void fillComboBox() {
 
-        resultSet = sqlhelp.SelectTable("show client_trial");
+        resultSet = sqlhelp.SelectTable("SELECT * FROM client_test");
         if (resultSet != null) try {
             while (resultSet.next()) {
                 String name = resultSet.getString(1);
