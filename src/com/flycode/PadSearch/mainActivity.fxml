@@ -16,7 +16,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flycode.PadSearch.mainActivityController">
     <children>
-        <TabPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="login">
                     <content>
@@ -44,14 +44,18 @@
                                 <ComboBox fx:id="comboBox" layoutX="450.0" layoutY="2.0" onAction="#onSelectComboBoxTableName" prefWidth="150.0" promptText="Choose Table" />
                                 <Button fx:id="loadButton" disable="true" layoutX="491.0" layoutY="42.0" mnemonicParsing="false" onAction="#onClickLoadButton" text="Load" />
                                 <Button fx:id="deleteButton" disable="true" layoutX="487.0" layoutY="89.0" mnemonicParsing="false" onAction="#onClickDeleteButton" text="Delete" />
-                                <TextField fx:id="textField1" layoutY="326.0" />
-                                <TextField fx:id="textField2" layoutX="149.0" layoutY="326.0" />
-                                <TextField fx:id="textField3" layoutX="298.0" layoutY="326.0" />
+                                <TextField fx:id="textField1" layoutY="326.0" prefWidth="97.0" />
+                                <TextField fx:id="textField2" layoutX="97.0" layoutY="326.0" prefHeight="25.0" prefWidth="85.0" />
+                                <TextField fx:id="textField3" layoutX="182.0" layoutY="326.0" prefHeight="25.0" prefWidth="86.0" />
                                 <Button fx:id="addButton" layoutX="472.0" layoutY="326.0" mnemonicParsing="false" onAction="#onClickAddButton" text="Add" />
-                                <Label fx:id="label1" layoutX="61.0" layoutY="309.0" text="Label" />
-                                <Label fx:id="label2" layoutX="210.0" layoutY="309.0" text="Label" />
-                                <Label fx:id="label3" layoutX="359.0" layoutY="309.0" text="Label" />
+                                <Label fx:id="label1" layoutX="35.0" layoutY="309.0" text="Label" />
+                                <Label fx:id="label2" layoutX="130.0" layoutY="309.0" text="Label" />
+                                <Label fx:id="label3" layoutX="211.0" layoutY="309.0" text="Label" />
                                 <Button layoutX="525.0" layoutY="326.0" mnemonicParsing="false" onAction="#onClickUpdateButton" text="Update" />
+                                <TextField fx:id="textField4" layoutX="269.0" layoutY="326.0" prefHeight="25.0" prefWidth="98.0" />
+                                <TextField fx:id="textField5" layoutX="367.0" layoutY="326.0" prefHeight="25.0" prefWidth="85.0" />
+                                <Label fx:id="label4" layoutX="304.0" layoutY="309.0" text="Label" />
+                                <Label fx:id="label5" layoutX="396.0" layoutY="309.0" text="Label" />
                             </children>
                         </AnchorPane>
                     </content>

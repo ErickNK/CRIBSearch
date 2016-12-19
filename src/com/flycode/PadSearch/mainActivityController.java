@@ -30,6 +30,10 @@ public class mainActivityController extends DbUtil implements Initializable {
     @FXML
     private TextField textField3;
     @FXML
+    private TextField textField4;
+    @FXML
+    private TextField textField5;
+    @FXML
     private Label info_label;
     @FXML
     private Label label1;
@@ -37,6 +41,12 @@ public class mainActivityController extends DbUtil implements Initializable {
     private Label label2;
     @FXML
     private Label label3;
+    @FXML
+    private Label label4;
+    @FXML
+    private Label label5;
+    @FXML
+    private Label label6;
     @FXML
     private Tab tab_sheets;
     @FXML
@@ -127,10 +137,14 @@ public class mainActivityController extends DbUtil implements Initializable {
             textField1.setText(String.valueOf(((ObservableList) string).get(1)));
             textField2.setText(String.valueOf(((ObservableList) string).get(2)));
             textField3.setText(String.valueOf(((ObservableList) string).get(3)));
+            textField4.setText(String.valueOf(((ObservableList) string).get(3)));
+            textField5.setText(String.valueOf(((ObservableList) string).get(3)));
         } else {
             textField1.setText("");
             textField2.setText("");
             textField3.setText("");
+            textField4.setText("");
+            textField5.setText("");
         }
     }
 
