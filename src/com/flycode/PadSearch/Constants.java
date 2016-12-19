@@ -9,6 +9,7 @@ public class Constants {
     //Padsearch database
     protected String DATABASE_NAME = "padsearch";
 
+
     //client_test table
     protected String TABLE_NAME = "client_test";
     protected final String First_Column = "First";
@@ -21,4 +22,7 @@ public class Constants {
 
     //TODO: make it possible for constants class updatable when new tables are formed
 
+    public Constants getConstants(int constantsNo){
+        return null;
+    }
 }

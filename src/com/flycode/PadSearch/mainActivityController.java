@@ -48,6 +48,7 @@ public class mainActivityController extends DbUtil implements Initializable {
     private ObservableList<String> tableNames = FXCollections.observableArrayList();
     private ObservableList data = FXCollections.observableArrayList();
     private String tableName;
+    private Constants constants;
     private MySqlHelper sqlhelp;
 
 
@@ -58,22 +59,26 @@ public class mainActivityController extends DbUtil implements Initializable {
         sqlhelp = new MySqlHelper(login_field.getText(),password_field.getText());
         if (sqlhelp.connectDB()) {
             tab_sheets.setDisable(false);
-            info_label.setText("login Successfull");
+            info_label.setText("login Successful");
             info_label.setTextFill(Color.GREEN);
             fillComboBox();
         } else {
             tab_sheets.setDisable(true);
-            info_label.setText("Login Not Successfull");
+            info_label.setText("Login Not Successful");
             info_label.setTextFill(Color.RED);
         }
     }
 
     private void fillComboBox() {
-
-        resultSet = sqlhelp.SelectTable("SELECT * FROM client_test");
+        try{
+            resultSet = sqlhelp.SelectTable(1);
+        } catch (Exception e){
+            System.out.println("Problem with constants class");
+            e.printStackTrace();
+        }
         if (resultSet != null) try {
             while (resultSet.next()) {
-                String name = resultSet.getString(1);
+                String name = "client_test";//resultSet.getString(1);
                 tableNames.add(name);
             }
         } catch (SQLException e) {
@@ -101,7 +106,7 @@ public class mainActivityController extends DbUtil implements Initializable {
     }
 
     public void onClickAddButton() {
-        String query = "insert into " + tableName + " values (null,\"" + textField1.getText() + "\",\"" + textField2.getText() + "\",\"" + textField3.getText() + "\")";
+        String query = "insert into " + constants.TABLE_NAME + " values (null,\"" + textField1.getText() + "\",\"" + textField2.getText() + "\",\"" + textField3.getText() + "\")";
         sqlhelp.doUpdate(query);
         onClickLoadButton();
     }
@@ -110,7 +115,7 @@ public class mainActivityController extends DbUtil implements Initializable {
         Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
         String id = (String) ((ObservableList) string).get(0);
 
-        sqlhelp.doUpdate("delete from " + tableName + " where id=" + id);
+        sqlhelp.doUpdate("delete from " + constants.TABLE_NAME + " where id=" + id);
         onClickLoadButton();
 
     }
@@ -132,7 +137,7 @@ public class mainActivityController extends DbUtil implements Initializable {
     public void onClickUpdateButton() {
         Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
         String id = (String) ((ObservableList) string).get(0);
-        String query = "update " + tableName + " set " + label1.getText() + "=\"" + textField1.getText() + "\"," + label2.getText() + "=\"" + textField2.getText()
+        String query = "update " + constants.TABLE_NAME + " set " + label1.getText() + "=\"" + textField1.getText() + "\"," + label2.getText() + "=\"" + textField2.getText()
                 + "\"," + label3.getText() + "=\"" + textField3.getText() + "\"" + " where id=" + id;
         sqlhelp.doUpdate(query);
         onClickLoadButton();
@@ -145,8 +150,15 @@ public class mainActivityController extends DbUtil implements Initializable {
         onClickLoadButton();
     }
 
+
+    //TODO: fix buildData() to inflate TableView correctly
     private void buildData() throws SQLException {
-        resultSet = sqlhelp.SelectTable("select * " + "from " + tableName);
+        try{
+        resultSet = sqlhelp.SelectTable(1);
+        } catch (Exception e){
+            System.out.println("Problem with constants class");
+            e.printStackTrace();
+        }
 
         /**********************************
          * TABLE COLUMN ADDED DYNAMICALLY *

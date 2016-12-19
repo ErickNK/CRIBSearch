@@ -44,15 +44,17 @@ public class MySqlHelper {
     /**
      * <p>Function copied and implemented from DbUtil</p>
      * */
-    public ResultSet SelectTable(String query){
+    public ResultSet SelectTable(int tableNo){
+        //TODO: make selecting between tables possible
+        if(tableNo == 1)
         try {
-            ResultSet resultSet = stmt.executeQuery(query);
+            ResultSet resultSet = stmt.executeQuery("SELECT * FROM client_test");
             return resultSet;
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error in SelectTable");
-            return null;
         }
+        return null;
     }
 
     /**
