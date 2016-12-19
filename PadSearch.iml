@@ -11,5 +11,6 @@
     <orderEntry type="library" name="controlsfx-8.40.10" level="application" />
     <orderEntry type="library" name="UndecoratorBis" level="application" />
     <orderEntry type="library" name="jfxtras-all-8.0-r5" level="application" />
+    <orderEntry type="library" name="mysql-connector-java-5.1.40-bin" level="application" />
   </component>
 </module>

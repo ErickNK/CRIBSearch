@@ -25,8 +25,8 @@
                                 <Button layoutX="340.0" layoutY="222.0" mnemonicParsing="false" onAction="#onClickLoginButton" text="Login" />
                                 <Label layoutX="182.0" layoutY="128.0" text="Username" />
                                 <Label layoutX="182.0" layoutY="167.0" text="Password" />
-                                <PasswordField fx:id="password_field" editable="false" layoutX="237.0" layoutY="163.0" text="R6a1D8u0" />
-                                <TextField fx:id="login_field" editable="false" layoutX="237.0" layoutY="124.0" text="username" />
+                                <PasswordField fx:id="password_field" layoutX="237.0" layoutY="163.0" text="password" />
+                                <TextField fx:id="login_field" layoutX="237.0" layoutY="124.0" text="username" />
                                 <Label fx:id="info_label" layoutX="28.0" layoutY="323.0" text="logging" visible="false">
                                     <font>
                                         <Font name="System Bold" size="14.0" />

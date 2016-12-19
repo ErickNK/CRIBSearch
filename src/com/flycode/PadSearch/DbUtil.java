@@ -22,6 +22,7 @@ class DbUtil {
 
     }
 
+    /*
     boolean connectDb() {
         try {
 
@@ -46,6 +47,7 @@ class DbUtil {
             }
         }
     }
+    */
 
     ResultSet doSelect(String query) {
         ResultSet resultSet;

@@ -14,7 +14,6 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
 public class mainActivityController extends DbUtil implements Initializable {
     @FXML
     ComboBox<String> comboBox;
@@ -54,24 +53,24 @@ public class mainActivityController extends DbUtil implements Initializable {
 
     public void onClickLoginButton() {
         info_label.setVisible(true);
-        info_label.setText("loggin...");
+        info_label.setText("logging in...");
         info_label.setTextFill(Color.BLACK);
         sqlhelp = new MySqlHelper(login_field.getText(),password_field.getText());
         if (sqlhelp.connectDB()) {
             tab_sheets.setDisable(false);
-            info_label.setText("logged ok");
+            info_label.setText("login Successfull");
             info_label.setTextFill(Color.GREEN);
             fillComboBox();
         } else {
             tab_sheets.setDisable(true);
-            info_label.setText("not logged (call Gennadiy");
+            info_label.setText("Login Not Successfull");
             info_label.setTextFill(Color.RED);
         }
     }
 
     private void fillComboBox() {
-        //TODO: change to use the MySQLHelper class instead of DbUtil
-        resultSet = doSelect("show tables");
+
+        resultSet = sqlhelp.SelectTable("show client_trial");
         if (resultSet != null) try {
             while (resultSet.next()) {
                 String name = resultSet.getString(1);
@@ -103,7 +102,7 @@ public class mainActivityController extends DbUtil implements Initializable {
 
     public void onClickAddButton() {
         String query = "insert into " + tableName + " values (null,\"" + textField1.getText() + "\",\"" + textField2.getText() + "\",\"" + textField3.getText() + "\")";
-        doUpdate(query);
+        sqlhelp.doUpdate(query);
         onClickLoadButton();
     }
 
@@ -111,7 +110,7 @@ public class mainActivityController extends DbUtil implements Initializable {
         Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
         String id = (String) ((ObservableList) string).get(0);
 
-        doUpdate("delete from " + tableName + " where id=" + id);
+        sqlhelp.doUpdate("delete from " + tableName + " where id=" + id);
         onClickLoadButton();
 
     }
@@ -135,7 +134,7 @@ public class mainActivityController extends DbUtil implements Initializable {
         String id = (String) ((ObservableList) string).get(0);
         String query = "update " + tableName + " set " + label1.getText() + "=\"" + textField1.getText() + "\"," + label2.getText() + "=\"" + textField2.getText()
                 + "\"," + label3.getText() + "=\"" + textField3.getText() + "\"" + " where id=" + id;
-        doUpdate(query);
+        sqlhelp.doUpdate(query);
         onClickLoadButton();
     }
 
@@ -147,7 +146,7 @@ public class mainActivityController extends DbUtil implements Initializable {
     }
 
     private void buildData() throws SQLException {
-        resultSet = doSelect("select * " + "from " + tableName);
+        resultSet = sqlhelp.SelectTable("select * " + "from " + tableName);
 
         /**********************************
          * TABLE COLUMN ADDED DYNAMICALLY *

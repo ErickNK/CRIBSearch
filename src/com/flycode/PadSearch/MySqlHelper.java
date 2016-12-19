@@ -17,6 +17,8 @@ public class MySqlHelper {
     private Constants constants;
     private Statement stmt = null;
     private DatFeeder data;
+//    private String baseUrl = "jdbc:mysql://localhost:3306/";
+//    private String url = baseUrl + constants.DATABASE_NAME;
     
     public MySqlHelper(String username, String pass){
         this.Username = username;
@@ -26,19 +28,42 @@ public class MySqlHelper {
     public boolean connectDB(){
         //getConnection
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/"
-                    +constants.DATABASE_NAME + "?"+"user="
-                    +Username+"&password="+Pass);
+            //TODO: find a way to get hostname and port automatically.
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/",Username,Pass);
             stmt = con.createStatement();
             return true;
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception ex) {
+            ex.printStackTrace();
             return false;
         }
     }
 
     //CRUD
+    /**
+     * <p>Function copied and implemented from DbUtil</p>
+     * */
+    public ResultSet SelectTable(String query){
+        try {
+            ResultSet resultSet = stmt.executeQuery(query);
+            return resultSet;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error in SelectTable");
+            return null;
+        }
+    }
+
+    /**
+     * <p>Function copied and implemented from DbUtil</p>
+     * */
+    public void doUpdate(String query){
+        try{
+            stmt.executeUpdate(query);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 
     /**
      * Enter a new record at the end of the Client_table
@@ -90,8 +115,9 @@ public class MySqlHelper {
     }
 
     /**
-     * Sample!
-     * Creates a new table in the current connected database*/
+     * <p>Sample!</p>
+     * <p>Creates a new table in the current connected database</p>
+     * */
     public void createTable(String Table_name){
         try{
             stmt.executeQuery("CREATE TABLE "+Table_name+" (" +
