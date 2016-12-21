@@ -1,6 +1,8 @@
 package com.flycode.PadSearch;
 
+import com.flycode.PadSearch.Constants.Constants;
 import com.flycode.PadSearch.Entities.Tenant;
+import com.flycode.PadSearch.PadSql.MySqlHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -132,9 +134,9 @@ public class mainActivityController extends DbUtil implements Initializable {
         tenant.setSecond(textField1.getText());
         tenant.setSurname(textField1.getText());
         tenant.setTell(Integer.valueOf(textField1.getText()));
-        tenant.setSocialSecurityNo(Integer.valueOf(textField1.getText()));
+        tenant.setNational_ID(Integer.valueOf(textField1.getText()));
         tenant.setBio(textField1.getText());
-        sqlhelp.createRecord(tenant);
+        sqlhelp.addTenant(tenant);
         
         onClickLoadButton();
     }
@@ -144,7 +146,7 @@ public class mainActivityController extends DbUtil implements Initializable {
         String id = (String) ((ObservableList) string).get(0);
 
         //sqlhelp.doUpdate("delete from " + constants.TABLE_NAME + " where id=" + id);
-        sqlhelp.DeleteRecord("id=" + id);
+        sqlhelp.DeleteRecord(id);
         onClickLoadButton();
 
     }

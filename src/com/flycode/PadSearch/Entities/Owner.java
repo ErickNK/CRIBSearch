@@ -1,9 +1,10 @@
 package com.flycode.PadSearch.Entities;
 
 /**
- * Created by erikn on 12/21/2016.
+ * <p>Class used to implement the entity Owner of the PadSearch Entity Model.</p>
+ * <p>It implements Attributes of the relation <b>Owner</b> as variables.</p>
  */
-public class Owner {
+public class Owner extends PadEntity<Owner> {
     private int id;
     private String First;
     private String Second;
@@ -59,5 +60,13 @@ public class Owner {
 
     public void setBio(String bio) {
         Bio = bio;
+    }
+
+    public int getOwner_id() {
+        return Owner_id;
+    }
+
+    public void setOwner_id(int owner_id) {
+        Owner_id = owner_id;
     }
 }

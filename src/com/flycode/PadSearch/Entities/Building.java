@@ -1,9 +1,10 @@
 package com.flycode.PadSearch.Entities;
 
 /**
- * Created by erikn on 12/21/2016.
+ * <p>Class used to implement the entity Building of the PadSearch Entity Model.</p>
+ * <p>It implements Attributes of the relation <b>Building</b> as variables.</p>
  */
-public class Building {
+public class Building extends PadEntity<Building> {
     private int id;
     private int Registration_id;
     private String Name;

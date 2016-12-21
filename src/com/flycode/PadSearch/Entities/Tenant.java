@@ -1,14 +1,16 @@
 package com.flycode.PadSearch.Entities;
 
 /**
- * Created by erikn on 12/21/2016.
+ * <p>Class used to implement the entity Tenant of the PadSearch Entity Model.</p>
+ * <p>It implements Attributes of the relation <b>Tenant</b> as variables.</p>
  */
-public class Tenant extends Entity {
+public class Tenant extends PadEntity {
+    private int id;
     private String First;
     private String Second;
     private String surname;
     private int Tell;
-    private int SocialSecurityNo;
+    private int National_ID;
     private String Bio;
 
     public String getFirst() {
@@ -27,8 +29,8 @@ public class Tenant extends Entity {
         return Tell;
     }
 
-    public int getSocialSecurityNo() {
-        return SocialSecurityNo;
+    public int getNational_ID() {
+        return National_ID;
     }
 
     public String getBio() {
@@ -51,8 +53,8 @@ public class Tenant extends Entity {
         this.Tell = Tell;
     }
 
-    public void setSocialSecurityNo(int SocialSecurityNo) {
-        this.SocialSecurityNo = SocialSecurityNo;
+    public void setNational_ID(int SocialSecurityNo) {
+        this.National_ID = SocialSecurityNo;
     }
 
     public void setBio(String Bio) {
