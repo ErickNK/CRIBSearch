@@ -1,11 +1,11 @@
-package com.flycode.PadSearch;
+package com.flycode.PadSearch.Entities;
 
 /**
  *
  * @author erikn
  * Personal Info data binder and parser
  */
-public class DatFeeder {
+public class Entity {
     private String First;
     private String Second;
     private String surname;

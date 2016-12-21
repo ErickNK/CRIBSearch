@@ -1,4 +1,6 @@
 package com.flycode.PadSearch;
+import com.flycode.PadSearch.Entities.Entity;
+
 import java.sql.*;
 
 /**
@@ -19,7 +21,7 @@ public class MySqlHelper {
     private String Pass;
     private Constants constants;
     private Statement stmt = null;
-    private DatFeeder data;
+    private Entity data;
     private Connection con;
 //    private String baseUrl = "jdbc:mysql://localhost:3306/";
 //    private String url = baseUrl + constants.DATABASE_NAME;
@@ -79,7 +81,7 @@ public class MySqlHelper {
     /**
      * Enter a new record at the end of the Client_table
      * */
-    public void createRecord(DatFeeder data){
+    public void createRecord(Entity data){
         this.data = data;
         try {
             stmt.executeQuery("INSERT INTO "+constants.TABLE_NAME+" ("
@@ -100,6 +102,13 @@ public class MySqlHelper {
     }
 
     public void DeleteRecord(String where){
+        try{
+            stmt.executeQuery("delete from " + constants.TABLE_NAME
+                    + " where " + where);
+        }catch (Exception ex){
+            System.out.println("An error occured when deleting record");
+            ex.printStackTrace();
+        }
 
     }
 
@@ -108,11 +117,11 @@ public class MySqlHelper {
      * NOTE: the where clause must be given in string format. If omitted then
      * all the recodes will be updated, some may be updated to empty values.
      *
-     * @param data Of DatFeeder class type used to parse data to table
+     * @param data Of Entity class type used to parse data to table
      * @param where sql where clause to specify the record to update.
      *
      * * */
-    public void UpdateRecord(DatFeeder data, String where){
+    public void UpdateRecord(Entity data, String where){
         this.data = data;
         try {
             stmt.executeQuery("UPDATE "+constants.TABLE_NAME

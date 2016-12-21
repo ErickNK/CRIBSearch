@@ -1,5 +1,6 @@
 package com.flycode.PadSearch;
 
+import com.flycode.PadSearch.Entities.Tenant;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -142,7 +143,8 @@ public class mainActivityController extends DbUtil implements Initializable {
         Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
         String id = (String) ((ObservableList) string).get(0);
 
-        sqlhelp.doUpdate("delete from " + constants.TABLE_NAME + " where id=" + id);
+        //sqlhelp.doUpdate("delete from " + constants.TABLE_NAME + " where id=" + id);
+        sqlhelp.DeleteRecord("id=" + id);
         onClickLoadButton();
 
     }
