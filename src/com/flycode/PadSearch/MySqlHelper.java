@@ -8,6 +8,9 @@ import java.sql.*;
  * However this methods are not exhaustive of all possible CRUD methods that are
  * available.
  * </p>
+ *<p>This class uses the DriverManager class instead of the DataSource class to establish a connection.
+ *</p>
+ *<p>The class first loads JDBC 4.0 drivers found within the class path.</p>
  *
  *
  */
@@ -19,7 +22,8 @@ public class MySqlHelper {
     private DatFeeder data;
 //    private String baseUrl = "jdbc:mysql://localhost:3306/";
 //    private String url = baseUrl + constants.DATABASE_NAME;
-    
+
+
     public MySqlHelper(String username, String pass){
         this.Username = username;
         this.Pass = pass;
@@ -40,7 +44,10 @@ public class MySqlHelper {
         }
     }
 
-    //CRUD
+    // ************************/
+    // *          CRUD        */
+    // ************************/
+
     /**
      * <p>Function copied and implemented from DbUtil</p>
      * */

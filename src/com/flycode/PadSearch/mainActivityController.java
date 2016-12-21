@@ -168,9 +168,10 @@ public class mainActivityController extends DbUtil implements Initializable {
     //TODO: fix buildData() to inflate TableView correctly
     private void buildData() throws SQLException {
         try{
-        resultSet = sqlhelp.SelectTable(1);
+        resultSet = sqlhelp.SelectTable(1); //SELECT ALL THE COLUMNS
         } catch (Exception e){
-            System.out.println("Problem with constants class");
+
+            System.out.println("Cannot retrieve data from database");
             e.printStackTrace();
         }
 
