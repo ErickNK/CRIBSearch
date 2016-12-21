@@ -2,7 +2,7 @@ package com.flycode.PadSearch;
 import java.sql.*;
 
 /**
- * Created by erikn on 12/5/2016.
+ * Created by erikn on 12/5/2016
  * <p>
  * Class establishes connection with  database and contains various CRUD methods.
  * However this methods are not exhaustive of all possible CRUD methods that are
