@@ -20,6 +20,7 @@ public class MySqlHelper {
     private Constants constants;
     private Statement stmt = null;
     private DatFeeder data;
+    private Connection con;
 //    private String baseUrl = "jdbc:mysql://localhost:3306/";
 //    private String url = baseUrl + constants.DATABASE_NAME;
 
@@ -35,7 +36,7 @@ public class MySqlHelper {
             //TODO: find a way to get hostname and port automatically.
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 //            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+constants.DATABASE_NAME+"/",Username,Pass);
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/padsearch",Username,Pass);
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/padsearch",Username,Pass);
             stmt = con.createStatement();
             return true;
         }catch (Exception ex) {
@@ -44,9 +45,9 @@ public class MySqlHelper {
         }
     }
 
-    // ************************/
-    // *          CRUD        */
-    // ************************/
+    // ***************************/
+    // *          C*R*U*D        */
+    // ***************************/
 
     /**
      * <p>Function copied and implemented from DbUtil</p>
@@ -98,6 +99,10 @@ public class MySqlHelper {
         }
     }
 
+    public void DeleteRecord(String where){
+
+    }
+
     /**
      * Updates Client_table records.
      * NOTE: the where clause must be given in string format. If omitted then
@@ -145,6 +150,7 @@ public class MySqlHelper {
 
     public void clossConnection(){
         try {
+            con.close();
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();

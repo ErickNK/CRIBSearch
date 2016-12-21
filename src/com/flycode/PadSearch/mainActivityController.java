@@ -34,6 +34,8 @@ public class mainActivityController extends DbUtil implements Initializable {
     @FXML
     private TextField textField5;
     @FXML
+    private TextField textField6;
+    @FXML
     private Label info_label;
     @FXML
     private Label label1;
@@ -59,6 +61,7 @@ public class mainActivityController extends DbUtil implements Initializable {
     private ObservableList data = FXCollections.observableArrayList();
     private String tableName;
     private Constants constants;
+    private Tenant tenant;
     private MySqlHelper sqlhelp;
 
 
@@ -95,6 +98,7 @@ public class mainActivityController extends DbUtil implements Initializable {
             System.out.println("Error in fillCombo");
             e.printStackTrace();
         }
+        //TODO; Remove this conn block as it is already implemented in MySqlHelper
         if (conn != null)
             try {
                 conn.close();
@@ -116,8 +120,21 @@ public class mainActivityController extends DbUtil implements Initializable {
     }
 
     public void onClickAddButton() {
-        String query = "insert into " + constants.TABLE_NAME + " values (null,\"" + textField1.getText() + "\",\"" + textField2.getText() + "\",\"" + textField3.getText() + "\")";
-        sqlhelp.doUpdate(query);
+        /*String query = "INSERT INTO " + constants.TABLE_NAME + " values (" + "\""
+                + textField1.getText() + "\",\""
+                + textField2.getText() + "\",\""
+                + textField3.getText() + "\")";
+        sqlhelp.doUpdate(query);*/
+
+        tenant = new Tenant();
+        tenant.setFirst(textField1.getText());
+        tenant.setSecond(textField1.getText());
+        tenant.setSurname(textField1.getText());
+        tenant.setTell(Integer.valueOf(textField1.getText()));
+        tenant.setSocialSecurityNo(Integer.valueOf(textField1.getText()));
+        tenant.setBio(textField1.getText());
+        sqlhelp.createRecord(tenant);
+        
         onClickLoadButton();
     }
 
@@ -134,27 +151,42 @@ public class mainActivityController extends DbUtil implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         if (index >= 0) {
             Object string = data.get(index);
-            textField1.setText(String.valueOf(((ObservableList) string).get(1)));
-            textField2.setText(String.valueOf(((ObservableList) string).get(2)));
-            textField3.setText(String.valueOf(((ObservableList) string).get(3)));
+            textField1.setText(String.valueOf(((ObservableList) string).get(0)));
+            textField2.setText(String.valueOf(((ObservableList) string).get(1)));
+            textField3.setText(String.valueOf(((ObservableList) string).get(2)));
             textField4.setText(String.valueOf(((ObservableList) string).get(3)));
-            textField5.setText(String.valueOf(((ObservableList) string).get(3)));
+            textField5.setText(String.valueOf(((ObservableList) string).get(4)));
+            textField6.setText(String.valueOf(((ObservableList) string).get(5)));
         } else {
             textField1.setText("");
             textField2.setText("");
             textField3.setText("");
             textField4.setText("");
             textField5.setText("");
+            textField6.setText("");
         }
     }
 
+    //TODO: Make onClickUpdateButton() use the tenant class to parse data for updating.
     public void onClickUpdateButton() {
         Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
         String id = (String) ((ObservableList) string).get(0);
-        String query = "update " + constants.TABLE_NAME + " set " + label1.getText() + "=\"" + textField1.getText() + "\"," + label2.getText() + "=\"" + textField2.getText()
-                + "\"," + label3.getText() + "=\"" + textField3.getText() + "\"" + " where id=" + id;
-        sqlhelp.doUpdate(query);
-        onClickLoadButton();
+        try {
+            String query = "UPDATE client_test SET " // + constants.TABLE_NAME + " SET "
+                    + label1.getText() + "=\"" + textField1.getText() + "\","
+                    + label2.getText() + "=\"" + textField2.getText() + "\","
+                    + label3.getText() + "=\"" + textField3.getText() + "\","
+                    + label4.getText() + "=\"" + textField4.getText() + "\","
+                    + label5.getText() + "=\"" + textField5.getText() + "\","
+                    + label6.getText() + "=\"" + textField6.getText() + "\","
+                    + " where First=" + id;
+            sqlhelp.doUpdate(query);
+            onClickLoadButton();
+        }catch (Exception ex){
+            System.out.println("Error in Updating row");
+        }
+        
+        
     }
 
     public void onSelectComboBoxTableName() {
@@ -163,7 +195,6 @@ public class mainActivityController extends DbUtil implements Initializable {
         deleteButton.setDisable(false);
         onClickLoadButton();
     }
-
 
     //TODO: fix buildData() to inflate TableView correctly
     private void buildData() throws SQLException {
@@ -191,9 +222,12 @@ public class mainActivityController extends DbUtil implements Initializable {
             tableView.getColumns().addAll(col);
 
         }
+        //labels to display appropriate names for the columns
         label1.setText(resultSet.getMetaData().getColumnName(2));
         label2.setText(resultSet.getMetaData().getColumnName(3));
         label3.setText(resultSet.getMetaData().getColumnName(4));
+        label4.setText(resultSet.getMetaData().getColumnName(5));
+        label5.setText(resultSet.getMetaData().getColumnName(6));
 
         /********************************
          * Data added to ObservableList *

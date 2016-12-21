@@ -38,38 +38,40 @@
                 </Tab>
                 <Tab fx:id="tab_sheets" disable="true" text="sheets">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="352.0" prefWidth="600.0">
                             <children>
-                                <TableView fx:id="tableView" editable="true" layoutY="-8.0" onMouseClicked="#onMouseClickOnTable" prefHeight="310.0" prefWidth="449.0" tableMenuButtonVisible="true" />
+                                <TableView fx:id="tableView" editable="true" layoutY="-8.0" onMouseClicked="#onMouseClickOnTable" prefHeight="285.0" prefWidth="449.0" tableMenuButtonVisible="true" />
                                 <ComboBox fx:id="comboBox" layoutX="450.0" layoutY="2.0" onAction="#onSelectComboBoxTableName" prefWidth="150.0" promptText="Choose Table" />
                                 <Button fx:id="loadButton" disable="true" layoutX="491.0" layoutY="42.0" mnemonicParsing="false" onAction="#onClickLoadButton" text="Load" />
                                 <Button fx:id="deleteButton" disable="true" layoutX="487.0" layoutY="89.0" mnemonicParsing="false" onAction="#onClickDeleteButton" text="Delete" />
-                                <TextField fx:id="textField1" layoutY="326.0" prefWidth="97.0" />
-                                <TextField fx:id="textField2" layoutX="97.0" layoutY="326.0" prefHeight="25.0" prefWidth="85.0" />
-                                <TextField fx:id="textField3" layoutX="182.0" layoutY="326.0" prefHeight="25.0" prefWidth="86.0" />
+                                <TextField fx:id="textField1" layoutX="-1.0" layoutY="294.0" prefWidth="97.0" />
+                                <TextField fx:id="textField2" layoutX="96.0" layoutY="294.0" prefHeight="25.0" prefWidth="85.0" />
+                                <TextField fx:id="textField3" layoutX="181.0" layoutY="294.0" prefHeight="25.0" prefWidth="86.0" />
                                 <Button fx:id="addButton" layoutX="472.0" layoutY="326.0" mnemonicParsing="false" onAction="#onClickAddButton" text="Add" />
-                                <Label fx:id="label1" layoutX="35.0" layoutY="309.0" text="Label" />
-                                <Label fx:id="label2" layoutX="130.0" layoutY="309.0" text="Label" />
-                                <Label fx:id="label3" layoutX="211.0" layoutY="309.0" text="Label" />
+                                <Label fx:id="label1" layoutX="34.0" layoutY="277.0" text="Label" />
+                                <Label fx:id="label2" layoutX="129.0" layoutY="277.0" text="Label" />
+                                <Label fx:id="label3" layoutX="210.0" layoutY="277.0" text="Label" />
                                 <Button layoutX="525.0" layoutY="326.0" mnemonicParsing="false" onAction="#onClickUpdateButton" text="Update" />
-                                <TextField fx:id="textField4" layoutX="269.0" layoutY="326.0" prefHeight="25.0" prefWidth="98.0" />
-                                <TextField fx:id="textField5" layoutX="367.0" layoutY="326.0" prefHeight="25.0" prefWidth="85.0" />
-                                <Label fx:id="label4" layoutX="304.0" layoutY="309.0" text="Label" />
-                                <Label fx:id="label5" layoutX="396.0" layoutY="309.0" text="Label" />
+                                <TextField fx:id="textField4" layoutX="268.0" layoutY="294.0" prefHeight="25.0" prefWidth="98.0" />
+                                <TextField fx:id="textField5" layoutX="366.0" layoutY="294.0" prefHeight="25.0" prefWidth="85.0" />
+                                <Label fx:id="label4" layoutX="303.0" layoutY="277.0" text="Label" />
+                                <Label fx:id="label5" layoutX="395.0" layoutY="277.0" text="Label" />
+                                <Label fx:id="label6" layoutX="20.0" layoutY="330.0" text="Label" />
+                                <TextField fx:id="textField6" layoutX="55.0" layoutY="326.0" prefHeight="25.0" prefWidth="398.0" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="info">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="333.0" prefWidth="600.0">
                             <children>
                                 <ImageView fitHeight="400.0" fitWidth="279.0" layoutX="322.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@kerry.gif" />
                                     </image>
                                 </ImageView>
-                                <TextArea editable="false" layoutX="29.0" layoutY="30.0" prefHeight="82.0" prefWidth="228.0" text="This is test util programm &#10;for accessing to SQL db, &#10;add, delete and update entries.&#10;crazz@bk.ru" />
+                                <TextArea editable="false" layoutX="29.0" layoutY="30.0" prefHeight="82.0" prefWidth="228.0" text="PadSearch owner interface for storage &#10;and management of Tenants" />
                             </children>
                         </AnchorPane>
                     </content>
