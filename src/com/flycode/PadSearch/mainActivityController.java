@@ -3,6 +3,7 @@ package com.flycode.PadSearch;
 import com.flycode.PadSearch.Constants.Constants;
 import com.flycode.PadSearch.Entities.Tenant;
 import com.flycode.PadSearch.PadSql.MySqlHelper;
+import com.flycode.PadSearch.PadSql.PadSqlUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -64,16 +65,16 @@ public class mainActivityController extends DbUtil implements Initializable {
     private ObservableList data = FXCollections.observableArrayList();
     private String tableName;
     private Constants constants;
-    private Tenant tenant;
     private MySqlHelper sqlhelp;
+    private PadSqlUtil padsql;
 
 
     public void onClickLoginButton() {
         info_label.setVisible(true);
         info_label.setText("logging in...");
         info_label.setTextFill(Color.BLACK);
-        sqlhelp = new MySqlHelper(login_field.getText(),password_field.getText());
-        if (sqlhelp.connectDB()) {
+        padsql = new PadSqlUtil(login_field.getText(),password_field.getText());
+        if (padsql.CONNECTION_STATUS) {
             tab_sheets.setDisable(false);
             info_label.setText("login Successful");
             info_label.setTextFill(Color.GREEN);
@@ -86,30 +87,8 @@ public class mainActivityController extends DbUtil implements Initializable {
     }
 
     private void fillComboBox() {
-        try{
-            resultSet = sqlhelp.SelectTable(1);
-        } catch (Exception e){
-            System.out.println("Problem with constants class");
-            e.printStackTrace();
-        }
-        if (resultSet != null) try {
-            while (resultSet.next()) {
-                String name = "client_test";//resultSet.getString(1);
-                tableNames.add(name);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error in fillCombo");
-            e.printStackTrace();
-        }
-        //TODO; Remove this conn block as it is already implemented in MySqlHelper
-        if (conn != null)
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        tableNames.addAll("client_test","Tenants","Owners","Buildings");
         comboBox.setItems(tableNames);
-
     }
 
     public void onClickLoadButton() {
@@ -129,14 +108,14 @@ public class mainActivityController extends DbUtil implements Initializable {
                 + textField3.getText() + "\")";
         sqlhelp.doUpdate(query);*/
 
-        tenant = new Tenant();
+        Tenant tenant = new Tenant();
         tenant.setFirst(textField1.getText());
-        tenant.setSecond(textField1.getText());
-        tenant.setSurname(textField1.getText());
-        tenant.setTell(67324254/*Integer.valueOf(textField1.getText())*/);
-        tenant.setNational_ID(45234253/*Integer.valueOf(textField1.getText())*/);
-        tenant.setBio(textField1.getText());
-        sqlhelp.addTenant(tenant);
+        tenant.setSecond(textField2.getText());
+        tenant.setSurname(textField3.getText());
+        tenant.setTell(67324254/*Integer.valueOf(textField4.getText())*/);
+        tenant.setNational_ID(45234253/*Integer.valueOf(textField5.getText())*/);
+        tenant.setBio(textField6.getText());
+        padsql.addTenant(tenant);
         
         onClickLoadButton();
     }
@@ -146,7 +125,7 @@ public class mainActivityController extends DbUtil implements Initializable {
         String id = (String) ((ObservableList) string).get(0);
 
         //sqlhelp.doUpdate("delete from " + constants.TABLE_NAME + " where id=" + id);
-        sqlhelp.DeleteTenant(id);
+        padsql.DeleteTenant(id);
         onClickLoadButton();
 
     }
@@ -204,7 +183,7 @@ public class mainActivityController extends DbUtil implements Initializable {
     //TODO: fix buildData() to inflate TableView correctly
     private void buildData() throws SQLException {
         try{
-        resultSet = sqlhelp.SelectTable(1); //SELECT ALL THE COLUMNS
+        resultSet = padsql.SelectTable(1); //SELECT ALL THE COLUMNS
         } catch (Exception e){
 
             System.out.println("Cannot retrieve data from database");

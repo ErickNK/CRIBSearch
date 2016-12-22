@@ -15,21 +15,8 @@ package com.flycode.PadSearch.Constants;
 
 //TODO: check on making Constants classes better.
 public class Constants {
-    /*private int TableNo;*/
-
     /**
      * <p>Holds the Database name for PadSearch</p>
      * */
-    protected String DATABASE_NAME = "padsearch";
-
-    /*public Constants(int TableNo){
-        this.TableNo = TableNo;
-    }*/
-
-    /*public Constants getConstants(){
-        switch (TableNo){
-
-        }
-    }*/
-
+    public String DATABASE_NAME = "padsearch";
 }
