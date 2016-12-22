@@ -63,7 +63,7 @@ public class mainActivityController extends DbUtil implements Initializable {
     private ResultSet resultSet;
     private ObservableList<String> tableNames = FXCollections.observableArrayList();
     private ObservableList data = FXCollections.observableArrayList();
-    private String tableName;
+    private String SelectedTable;
     private Constants constants;
     private MySqlHelper sqlhelp;
     private PadSqlUtil padsql;
@@ -87,7 +87,7 @@ public class mainActivityController extends DbUtil implements Initializable {
     }
 
     private void fillComboBox() {
-        tableNames.addAll("client_test","Tenants","Owners","Buildings");
+        tableNames.addAll("client_test","tenant","owner","building");
         comboBox.setItems(tableNames);
     }
 
@@ -95,7 +95,7 @@ public class mainActivityController extends DbUtil implements Initializable {
         data.clear();
         tableView.getColumns().clear();
         try {
-            buildData();
+            buildData(SelectedTable);
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
@@ -174,18 +174,17 @@ public class mainActivityController extends DbUtil implements Initializable {
     }
 
     public void onSelectComboBoxTableName() {
-        tableName = comboBox.getValue();
+        SelectedTable = comboBox.getValue();
         loadButton.setDisable(false);
         deleteButton.setDisable(false);
         onClickLoadButton();
     }
 
     //TODO: fix buildData() to inflate TableView correctly
-    private void buildData() throws SQLException {
+    private void buildData(String table) throws SQLException {
         try{
-        resultSet = padsql.SelectTable(1); //SELECT ALL THE COLUMNS
+        resultSet = padsql.selectTable(table); //SELECT ALL THE COLUMNS
         } catch (Exception e){
-
             System.out.println("Cannot retrieve data from database");
             e.printStackTrace();
         }

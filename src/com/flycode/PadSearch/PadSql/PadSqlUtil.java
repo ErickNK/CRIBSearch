@@ -188,7 +188,12 @@ public class PadSqlUtil extends MySqlHelper{
     }
 
     /**
-     * <p>Function copied and implemented from DbUtil</p>
+     * <p>Used to select between the different PadSearch tables</p>
+     * @param tableNo the table number to be parsed for retrieving the selection<br/>
+     *                1-client-test<br/>
+     *                2-tenant<br/>
+     *                3-owner<br/>
+     *                4-building
      * */
     public ResultSet SelectTable(int tableNo){
         //TODO: make code better and shorter.

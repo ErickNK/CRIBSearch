@@ -66,8 +66,9 @@ public class MySqlHelper {
      * */
     public ResultSet selectTable(String table){
         ResultSet resultSet = null;
+        String sql = "SELECT * FROM " + table;
             try {
-                resultSet = stmt.executeQuery("SELECT * FROM " + table);
+                resultSet = stmt.executeQuery(sql);
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Error in SelectTable");
