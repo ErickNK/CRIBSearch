@@ -133,8 +133,8 @@ public class mainActivityController extends DbUtil implements Initializable {
         tenant.setFirst(textField1.getText());
         tenant.setSecond(textField1.getText());
         tenant.setSurname(textField1.getText());
-        tenant.setTell(Integer.valueOf(textField1.getText()));
-        tenant.setNational_ID(Integer.valueOf(textField1.getText()));
+        tenant.setTell(67324254/*Integer.valueOf(textField1.getText())*/);
+        tenant.setNational_ID(45234253/*Integer.valueOf(textField1.getText())*/);
         tenant.setBio(textField1.getText());
         sqlhelp.addTenant(tenant);
         
@@ -146,7 +146,7 @@ public class mainActivityController extends DbUtil implements Initializable {
         String id = (String) ((ObservableList) string).get(0);
 
         //sqlhelp.doUpdate("delete from " + constants.TABLE_NAME + " where id=" + id);
-        sqlhelp.DeleteRecord(id);
+        sqlhelp.DeleteTenant(id);
         onClickLoadButton();
 
     }
@@ -173,17 +173,18 @@ public class mainActivityController extends DbUtil implements Initializable {
 
     //TODO: Make onClickUpdateButton() use the tenant class to parse data for updating.
     public void onClickUpdateButton() {
+        //TODO: find a way to detect selection of the records correctly.
         Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
-        String id = (String) ((ObservableList) string).get(0);
+        String First = (String) ((ObservableList) string).get(0);
         try {
             String query = "UPDATE client_test SET " // + constants.TABLE_NAME + " SET "
-                    + label1.getText() + "=\"" + textField1.getText() + "\","
-                    + label2.getText() + "=\"" + textField2.getText() + "\","
-                    + label3.getText() + "=\"" + textField3.getText() + "\","
-                    + label4.getText() + "=\"" + textField4.getText() + "\","
-                    + label5.getText() + "=\"" + textField5.getText() + "\","
-                    + label6.getText() + "=\"" + textField6.getText() + "\","
-                    + " where First=" + id;
+                    + label1.getText() + "=" + textField1.getText() + ","
+                    + label2.getText() + "=" + textField2.getText() + ","
+                    + label3.getText() + "=" + textField3.getText() + ","
+                    + label4.getText() + "=" + textField4.getText() + ","
+                    + label5.getText() + "=" + textField5.getText() + ","
+                    + label6.getText() + "=" + textField6.getText()
+                    + " WHERE First=" + First+";";
             sqlhelp.doUpdate(query);
             onClickLoadButton();
         }catch (Exception ex){
@@ -227,11 +228,12 @@ public class mainActivityController extends DbUtil implements Initializable {
 
         }
         //labels to display appropriate names for the columns
-        label1.setText(resultSet.getMetaData().getColumnName(2));
-        label2.setText(resultSet.getMetaData().getColumnName(3));
-        label3.setText(resultSet.getMetaData().getColumnName(4));
-        label4.setText(resultSet.getMetaData().getColumnName(5));
-        label5.setText(resultSet.getMetaData().getColumnName(6));
+        label1.setText(resultSet.getMetaData().getColumnName(1));
+        label2.setText(resultSet.getMetaData().getColumnName(2));
+        label3.setText(resultSet.getMetaData().getColumnName(3));
+        label4.setText(resultSet.getMetaData().getColumnName(4));
+        label5.setText(resultSet.getMetaData().getColumnName(5));
+        label6.setText(resultSet.getMetaData().getColumnName(6));
 
         /********************************
          * Data added to ObservableList *

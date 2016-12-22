@@ -4,7 +4,7 @@ package com.flycode.PadSearch.Entities;
  * <p>Class used to implement the entity Tenant of the PadSearch Entity Model.</p>
  * <p>It implements Attributes of the relation <b>Tenant</b> as variables.</p>
  */
-public class Tenant extends PadEntity {
+public class Tenant extends PadEntity<Tenant> {
     private int id;
     private String First;
     private String Second;

@@ -60,7 +60,7 @@ public class MySqlHelper {
 
 
     //TODO: Make able to have only one method to create records for all entities.
-    //RECORD CREATIONS
+    //CREATE RECORDS
     public void addTenant(Tenant data){
         this.data = data;
         TenantTable tenant_table = new TenantTable();
@@ -128,10 +128,34 @@ public class MySqlHelper {
     }
 
 
-    //TODO: Make delete methods for all entities.
-    public void DeleteRecord(String id){
+    //TODO: Make delete method for all entities.
+    //DELETE RECORDS
+    public void DeleteTenant(String id){
+        TenantTable tenantTable = new TenantTable();
         try{
-            stmt.executeQuery("DELETE FROM " + constants.TABLE_NAME
+            stmt.executeQuery("DELETE FROM " + tenantTable.TABLE_NAME
+                    + " WHERE  id=" + id);
+        }catch (Exception ex){
+            System.out.println("An error occured when deleting record");
+            ex.printStackTrace();
+        }
+
+    }
+    public void DeleteOwner(String id){
+        OwnerTable table = new OwnerTable();
+        try{
+            stmt.executeQuery("DELETE FROM " + table.TABLE_NAME
+                    + " WHERE  id=" + id);
+        }catch (Exception ex){
+            System.out.println("An error occured when deleting record");
+            ex.printStackTrace();
+        }
+
+    }
+    public void DeleteBuilding(String id){
+        BuildingTable table = new BuildingTable();
+        try{
+            stmt.executeQuery("DELETE FROM " + table.TABLE_NAME
                     + " WHERE  id=" + id);
         }catch (Exception ex){
             System.out.println("An error occured when deleting record");
@@ -140,44 +164,47 @@ public class MySqlHelper {
 
     }
 
+    //TODO: Make update method for all entities.
+    //UPDATE RECORDS
     /**
      * Updates Tenant records.
      * NOTE: the where clause must be given in string format. If omitted then
      * all the recodes will be updated, some may be updated to empty values.
-     *
-     * @param data Of PadEntity class type used to parse data to table
+     *  @param data Of PadEntity class type used to parse data to table
      * @param where sql where clause to specify the record to update.
-     *
-     * * */
-    public void UpdateRecord(Tenant data, String where){
+     * */
+    public void UpdateTenant(Tenant data, String where){
         this.data = data;
+        TenantTable tenant_table = new TenantTable();
         try {
-            stmt.executeQuery("UPDATE "+constants.TABLE_NAME
+            stmt.executeQuery("UPDATE "+tenant_table.TABLE_NAME
                     +" SET "
-                    +constants.First_Column+"="+data.getFirst()+", "
-                    +constants.Second_Column+"="+data.getSecond()+", "
-                    +constants.Surname_Column+"="+data.getSurname()+", "
-                    +constants.Tell_Column+"="+data.getTell()+", "
-                    +constants.ID_Column+"="+data.getNational_ID()+", "
-                    +constants.Bio_Column+"="+data.getBio()
+                    +tenant_table.Second_Column+"="+data.getFirst()+", "
+                    +tenant_table.Third_Column+"="+data.getSecond()+", "
+                    +tenant_table.Fourth_Column+"="+data.getSurname()+", "
+                    +tenant_table.Fifth_Column+"="+data.getTell()+", "
+                    +tenant_table.Sixth_Column+"="+data.getNational_ID()+", "
+                    +tenant_table.Seventh_Column+"="+data.getBio()
                     +" WHERE " + where + ";");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+
     /**
      * <p>Beta!</p>
      * <p>Creates a new table in the current connected database</p>
      * */
-    public void createTable(String Table_name){
+    public void createTable(String sql/*Table_name*/){
         try{
-            stmt.executeQuery("CREATE TABLE "+Table_name+" (" +
+            stmt.executeQuery(sql);
+            /*stmt.executeQuery("CREATE TABLE "+Table_name+" (" +
                     " PersonID int"          + "," +
                     " LastName varchar(255)" + "," +
                     " FirstName varchar(255)"+ "," +
                     " Address varchar(255)"  + "," +
-                    " City varchar(255)" + " );");
+                    " City varchar(255)" + " );");*/
         }catch (Exception e){
             e.printStackTrace();
         }
