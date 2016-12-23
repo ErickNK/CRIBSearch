@@ -10,8 +10,8 @@ public class Owner extends PadEntity<Owner> {
     private String Second;
     private String surname;
     private int National_id;
-    private int Tell;
     private String Bio;
+    private int Tell;
     private int Owner_id;
 
     public String getFirst() {

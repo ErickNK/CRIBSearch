@@ -105,38 +105,46 @@ public class mainActivityController extends DbUtil implements Initializable {
 
     public void onClickAddButton() {
         if (comboBox.getValue().equals("tenant")){
-            addTenant();
+            Tenant tenant = newTenant();
+            padsql.addTenant(tenant);
         }else if (comboBox.getValue().equals("owner")) {
-            addOwner();
-        }else{
-            addBuilding();
+            Owner owner = newOwner();
+            padsql.addOwner(owner);
+        }else if(comboBox.getValue().equals("building")){
+            Building building = newBuilding();
+            padsql.addBuilding(building);
         }
-
-
-        
         onClickLoadButton();
     }
 
     public void onClickDeleteButton() {
         Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
         String id = (String) ((ObservableList) string).get(0);
+        try{
+            if (comboBox.getValue().equals("tenant")){
+                padsql.DeleteTenant(id);
+            }else if(comboBox.getValue().equals("owner")){
+                padsql.DeleteOwner(id);
+            }else if(comboBox.getValue().equals("building")){
+                padsql.DeleteBuilding(id);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
 
-        if (comboBox.getValue().equals("tenants"))
-        padsql.DeleteTenant(id);
         onClickLoadButton();
-
     }
 
     public void onMouseClickOnTable() {
         int index = tableView.getSelectionModel().getSelectedIndex();
         if (index >= 0) {
             Object string = data.get(index);
-            textField1.setText(String.valueOf(((ObservableList) string).get(0)));
-            textField2.setText(String.valueOf(((ObservableList) string).get(1)));
-            textField3.setText(String.valueOf(((ObservableList) string).get(2)));
-            textField4.setText(String.valueOf(((ObservableList) string).get(3)));
-            textField5.setText(String.valueOf(((ObservableList) string).get(4)));
-            textField6.setText(String.valueOf(((ObservableList) string).get(5)));
+            textField1.setText(String.valueOf(((ObservableList) string).get(1)));
+            textField2.setText(String.valueOf(((ObservableList) string).get(2)));
+            textField3.setText(String.valueOf(((ObservableList) string).get(3)));
+            textField4.setText(String.valueOf(((ObservableList) string).get(4)));
+            textField5.setText(String.valueOf(((ObservableList) string).get(5)));
+            textField6.setText(String.valueOf(((ObservableList) string).get(6)));
         } else {
             textField1.setText("");
             textField2.setText("");
@@ -149,25 +157,19 @@ public class mainActivityController extends DbUtil implements Initializable {
 
     //TODO: Make onClickUpdateButton() use the tenant class to parse data for updating.
     public void onClickUpdateButton() {
-        //TODO: find a way to detect selection of the records correctly.
         Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
-        String First = (String) ((ObservableList) string).get(0);
-        try {
-            String query = "UPDATE client_test SET " // + constants.TABLE_NAME + " SET "
-                    + label1.getText() + "=" + textField1.getText() + ","
-                    + label2.getText() + "=" + textField2.getText() + ","
-                    + label3.getText() + "=" + textField3.getText() + ","
-                    + label4.getText() + "=" + textField4.getText() + ","
-                    + label5.getText() + "=" + textField5.getText() + ","
-                    + label6.getText() + "=" + textField6.getText()
-                    + " WHERE First=" + First+";";
-            sqlhelp.updateTable(query);
-            onClickLoadButton();
-        }catch (Exception ex){
-            System.out.println("Error in Updating row");
+        String id = (String) ((ObservableList) string).get(0);
+        if (comboBox.getValue().equals("tenant")){
+            Tenant tenant = newTenant();
+            padsql.UpdateTenant(tenant,id);
+        }else if (comboBox.getValue().equals("owner")) {
+            Owner owner = newOwner();
+            padsql.UpdateOwner(owner,id);
+        }else if(comboBox.getValue().equals("building")){
+            Building building = newBuilding();
+            padsql.UpdateBuilding(building,id);
         }
-        
-        
+        onClickLoadButton();
     }
 
     public void onSelectComboBoxTableName() {
@@ -203,12 +205,12 @@ public class mainActivityController extends DbUtil implements Initializable {
 
         }
         //labels to display appropriate names for the columns
-        label1.setText(resultSet.getMetaData().getColumnName(1));
-        label2.setText(resultSet.getMetaData().getColumnName(2));
-        label3.setText(resultSet.getMetaData().getColumnName(3));
-        label4.setText(resultSet.getMetaData().getColumnName(4));
-        label5.setText(resultSet.getMetaData().getColumnName(5));
-        label6.setText(resultSet.getMetaData().getColumnName(6));
+        label1.setText(resultSet.getMetaData().getColumnName(2));
+        label2.setText(resultSet.getMetaData().getColumnName(3));
+        label3.setText(resultSet.getMetaData().getColumnName(4));
+        label4.setText(resultSet.getMetaData().getColumnName(5));
+        label5.setText(resultSet.getMetaData().getColumnName(6));
+        label6.setText(resultSet.getMetaData().getColumnName(7));
 
         /********************************
          * Data added to ObservableList *
@@ -236,36 +238,36 @@ public class mainActivityController extends DbUtil implements Initializable {
 
     }
 
-    private void addTenant(){
+    private Tenant newTenant(){
         Tenant tenant = new Tenant();
         tenant.setFirst(textField1.getText());
         tenant.setSecond(textField2.getText());
         tenant.setSurname(textField3.getText());
-        tenant.setTell(67324254/*Integer.valueOf(textField4.getText())*/);
-        tenant.setNational_ID(45234253/*Integer.valueOf(textField5.getText())*/);
+        tenant.setTell(Integer.parseInt(textField4.getText()));
+        tenant.setNational_ID(Integer.parseInt(textField5.getText()));
         tenant.setBio(textField6.getText());
-        padsql.addTenant(tenant);
+        return tenant;
     }
-    private void addOwner(){
+    private Owner newOwner(){
         Owner owner = new Owner();
         owner.setFirst(textField1.getText());
         owner.setSecond(textField2.getText());
         owner.setSurname(textField3.getText());
-        owner.setTell(67324254/*Integer.valueOf(textField4.getText())*/);
-        owner.setNational_id(45234253/*Integer.valueOf(textField5.getText())*/);
-        owner.setBio(textField6.getText());
-        owner.setOwner_id(26452452/*textField6.getText()*/);
-        padsql.addOwner(owner);
+        owner.setNational_id(Integer.parseInt(textField4.getText()));
+        owner.setBio(textField5.getText());
+        owner.setTell(Integer.parseInt(textField6.getText()));
+        owner.setOwner_id(54325434/*Integer.parseInt(textField6.getText())*/);
+        return owner;
     }
-    private void addBuilding(){
+    private Building newBuilding(){
         Building building = new Building();
-        building.setRegistration_id(5425423/*textField1.getText()*/);
+        building.setRegistration_id(Integer.parseInt(textField1.getText()));
         building.setName(textField2.getText());
         building.setOwner_Name(textField3.getText());
         building.setLicense(textField4.getText());
         building.setLocation(textField5.getText());
-        building.setNo_of_rooms(34/*textField6.getText()*/);
-        padsql.addBuilding(building);
+        building.setNo_of_rooms(Integer.parseInt(textField6.getText()));
+        return building;
     }
 
 
