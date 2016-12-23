@@ -1,6 +1,8 @@
 package com.flycode.PadSearch;
 
 import com.flycode.PadSearch.Constants.Constants;
+import com.flycode.PadSearch.Entities.Building;
+import com.flycode.PadSearch.Entities.Owner;
 import com.flycode.PadSearch.Entities.Tenant;
 import com.flycode.PadSearch.PadSql.MySqlHelper;
 import com.flycode.PadSearch.PadSql.PadSqlUtil;
@@ -102,20 +104,15 @@ public class mainActivityController extends DbUtil implements Initializable {
     }
 
     public void onClickAddButton() {
-        /*String query = "INSERT INTO " + constants.TABLE_NAME + " values (" + "\""
-                + textField1.getText() + "\",\""
-                + textField2.getText() + "\",\""
-                + textField3.getText() + "\")";
-        sqlhelp.doUpdate(query);*/
+        if (comboBox.getValue().equals("tenant")){
+            addTenant();
+        }else if (comboBox.getValue().equals("owner")) {
+            addOwner();
+        }else{
+            addBuilding();
+        }
 
-        Tenant tenant = new Tenant();
-        tenant.setFirst(textField1.getText());
-        tenant.setSecond(textField2.getText());
-        tenant.setSurname(textField3.getText());
-        tenant.setTell(67324254/*Integer.valueOf(textField4.getText())*/);
-        tenant.setNational_ID(45234253/*Integer.valueOf(textField5.getText())*/);
-        tenant.setBio(textField6.getText());
-        padsql.addTenant(tenant);
+
         
         onClickLoadButton();
     }
@@ -124,7 +121,7 @@ public class mainActivityController extends DbUtil implements Initializable {
         Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
         String id = (String) ((ObservableList) string).get(0);
 
-        //sqlhelp.doUpdate("delete from " + constants.TABLE_NAME + " where id=" + id);
+        if (comboBox.getValue().equals("tenants"))
         padsql.DeleteTenant(id);
         onClickLoadButton();
 
@@ -164,7 +161,7 @@ public class mainActivityController extends DbUtil implements Initializable {
                     + label5.getText() + "=" + textField5.getText() + ","
                     + label6.getText() + "=" + textField6.getText()
                     + " WHERE First=" + First+";";
-            sqlhelp.doUpdate(query);
+            sqlhelp.updateTable(query);
             onClickLoadButton();
         }catch (Exception ex){
             System.out.println("Error in Updating row");
@@ -237,6 +234,38 @@ public class mainActivityController extends DbUtil implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    private void addTenant(){
+        Tenant tenant = new Tenant();
+        tenant.setFirst(textField1.getText());
+        tenant.setSecond(textField2.getText());
+        tenant.setSurname(textField3.getText());
+        tenant.setTell(67324254/*Integer.valueOf(textField4.getText())*/);
+        tenant.setNational_ID(45234253/*Integer.valueOf(textField5.getText())*/);
+        tenant.setBio(textField6.getText());
+        padsql.addTenant(tenant);
+    }
+    private void addOwner(){
+        Owner owner = new Owner();
+        owner.setFirst(textField1.getText());
+        owner.setSecond(textField2.getText());
+        owner.setSurname(textField3.getText());
+        owner.setTell(67324254/*Integer.valueOf(textField4.getText())*/);
+        owner.setNational_id(45234253/*Integer.valueOf(textField5.getText())*/);
+        owner.setBio(textField6.getText());
+        owner.setOwner_id(26452452/*textField6.getText()*/);
+        padsql.addOwner(owner);
+    }
+    private void addBuilding(){
+        Building building = new Building();
+        building.setRegistration_id(5425423/*textField1.getText()*/);
+        building.setName(textField2.getText());
+        building.setOwner_Name(textField3.getText());
+        building.setLicense(textField4.getText());
+        building.setLocation(textField5.getText());
+        building.setNo_of_rooms(34/*textField6.getText()*/);
+        padsql.addBuilding(building);
     }
 
 

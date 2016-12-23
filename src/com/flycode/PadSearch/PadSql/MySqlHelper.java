@@ -18,11 +18,7 @@ public class MySqlHelper {
     private String Username;
     private String Pass;
     private Statement stmt = null;
-    private Object data;
     private Connection con;
-//    private String baseUrl = "jdbc:mysql://localhost:3306/";
-//    private String url = baseUrl + constants.DATABASE_NAME;
-
 
     public MySqlHelper(String username, String pass){
         this.Username = username;
@@ -49,21 +45,18 @@ public class MySqlHelper {
         return con;
     }
 
-    /**
-     * <p>Creates a new table in the current connected database</p>
-     * */
+    // ***************************/
+    // *          C*R*U*D        */
+    // ***************************/
+
     public void createTable(String sql){
         try{
             stmt.executeQuery(sql);
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
-    /**
-     *
-     * */
     public ResultSet selectTable(String table){
         ResultSet resultSet = null;
         String sql = "SELECT * FROM " + table;
@@ -76,17 +69,29 @@ public class MySqlHelper {
         return resultSet;
     }
 
-    /**
-     * <p>Function copied and implemented from DbUtil</p>
-     * */
-    public void doUpdate(String query){
+    public void updateTable(String sql){
         try{
-            stmt.executeUpdate(query);
+            stmt.executeUpdate(sql);
         }catch (Exception ex){
             ex.printStackTrace();
         }
     }
 
+    public void insertRecord(String sql){
+        try{
+            stmt.executeUpdate(sql);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteRecord(String sql){
+        try{
+            stmt.executeUpdate(sql);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public void closeConnection(){
         try {

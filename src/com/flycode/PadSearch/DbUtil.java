@@ -80,7 +80,7 @@ class DbUtil {
             statement = conn.createStatement();
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            System.out.println("Error in doUpdate");
+            System.out.println("Error in updateTable");
             e.printStackTrace();
         } finally {
             if (conn != null) {
