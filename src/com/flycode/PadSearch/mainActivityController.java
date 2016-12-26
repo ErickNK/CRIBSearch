@@ -1,10 +1,10 @@
 package com.flycode.PadSearch;
 
-import com.flycode.PadSearch.Constants.Constants;
+import com.flycode.PadSearch.Dialogs.PadDialog;
+import com.flycode.PadSearch.Dialogs.myDialog;
 import com.flycode.PadSearch.Entities.Building;
 import com.flycode.PadSearch.Entities.Owner;
 import com.flycode.PadSearch.Entities.Tenant;
-import com.flycode.PadSearch.PadSql.MySqlHelper;
 import com.flycode.PadSearch.PadSql.PadSqlUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -19,8 +19,9 @@ import javafx.util.Callback;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
-public class mainActivityController extends DbUtil implements Initializable {
+public class mainActivityController implements Initializable {
     @FXML
     ComboBox<String> comboBox;
     @FXML
@@ -66,10 +67,14 @@ public class mainActivityController extends DbUtil implements Initializable {
     private ObservableList<String> tableNames = FXCollections.observableArrayList();
     private ObservableList data = FXCollections.observableArrayList();
     private String SelectedTable;
-    private Constants constants;
-    private MySqlHelper sqlhelp;
     private PadSqlUtil padsql;
+    private ResourceBundle dialogResources = ResourceBundle.getBundle("com.flycode.PadSearch.resources.dialog", Locale.getDefault());
 
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 
     public void onClickLoginButton() {
         info_label.setVisible(true);
@@ -81,10 +86,12 @@ public class mainActivityController extends DbUtil implements Initializable {
             info_label.setText("login Successful");
             info_label.setTextFill(Color.GREEN);
             fillComboBox();
+            myDialog.showInfo(dialogResources.getString("LoginSuccessTitle"),dialogResources.getString("LoginSuccessMessage"));
         } else {
             tab_sheets.setDisable(true);
             info_label.setText("Login Not Successful");
             info_label.setTextFill(Color.RED);
+            myDialog.showError(dialogResources.getString("LoginErrorTitle"),dialogResources.getString("LoginErrorMessage"));
         }
     }
 
@@ -98,21 +105,25 @@ public class mainActivityController extends DbUtil implements Initializable {
         tableView.getColumns().clear();
         try {
             buildData(SelectedTable);
-        } catch (SQLException e1) {
-            e1.printStackTrace();
+        } catch (SQLException e) {
+            myDialog.showThrowable("Error","at onClickLoadButton()",e);
         }
     }
 
     public void onClickAddButton() {
-        if (comboBox.getValue().equals("tenant")){
-            Tenant tenant = newTenant();
-            padsql.addTenant(tenant);
-        }else if (comboBox.getValue().equals("owner")) {
-            Owner owner = newOwner();
-            padsql.addOwner(owner);
-        }else if(comboBox.getValue().equals("building")){
-            Building building = newBuilding();
-            padsql.addBuilding(building);
+        try{
+            if (comboBox.getValue().equals("tenant")){
+                Tenant tenant = newTenant();
+                padsql.addTenant(tenant);
+            }else if (comboBox.getValue().equals("owner")) {
+                Owner owner = newOwner();
+                padsql.addOwner(owner);
+            }else if(comboBox.getValue().equals("building")){
+                Building building = newBuilding();
+                padsql.addBuilding(building);
+            }
+        }catch (Exception e){
+            myDialog.showThrowable("Error","at onClickAddButton()",e);
         }
         onClickLoadButton();
     }
@@ -128,10 +139,9 @@ public class mainActivityController extends DbUtil implements Initializable {
             }else if(comboBox.getValue().equals("building")){
                 padsql.DeleteBuilding(id);
             }
-        }catch (Exception ex){
-            ex.printStackTrace();
+        }catch (Exception e){
+            myDialog.showThrowable("Error","at onClickDeleteButton()",e);
         }
-
         onClickLoadButton();
     }
 
@@ -155,19 +165,26 @@ public class mainActivityController extends DbUtil implements Initializable {
         }
     }
 
-    //TODO: Make onClickUpdateButton() use the tenant class to parse data for updating.
     public void onClickUpdateButton() {
-        Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
-        String id = (String) ((ObservableList) string).get(0);
-        if (comboBox.getValue().equals("tenant")){
-            Tenant tenant = newTenant();
-            padsql.UpdateTenant(tenant,id);
-        }else if (comboBox.getValue().equals("owner")) {
-            Owner owner = newOwner();
-            padsql.UpdateOwner(owner,id);
-        }else if(comboBox.getValue().equals("building")){
-            Building building = newBuilding();
-            padsql.UpdateBuilding(building,id);
+        //TODO: make custom dialogs return the required entities.
+        try {
+            Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
+            String id = (String) ((ObservableList) string).get(0);
+            if (comboBox.getValue().equals("tenant")) {
+                Tenant tenant = newTenant();
+                PadDialog.tenantDialog("Update Tenant",tenant);
+                padsql.UpdateTenant(tenant, id);
+            } else if (comboBox.getValue().equals("owner")) {
+                Owner owner = newOwner();
+                PadDialog.ownerDialog("Update Owner");
+                padsql.UpdateOwner(owner, id);
+            } else if (comboBox.getValue().equals("building")) {
+                Building building = newBuilding();
+                PadDialog.buildingDialog("Update Building");
+                padsql.UpdateBuilding(building, id);
+            }
+        }catch (Exception e){
+            myDialog.showThrowable("Error","at onClickUpdateButton()",e);
         }
         onClickLoadButton();
     }
@@ -179,13 +196,11 @@ public class mainActivityController extends DbUtil implements Initializable {
         onClickLoadButton();
     }
 
-    //TODO: fix buildData() to inflate TableView correctly
     private void buildData(String table) throws SQLException {
         try{
         resultSet = padsql.selectTable(table); //SELECT ALL THE COLUMNS
         } catch (Exception e){
-            System.out.println("Cannot retrieve data from database");
-            e.printStackTrace();
+            myDialog.showThrowable("Error","Error in loading table.",e);
         }
 
         /**********************************
@@ -228,13 +243,6 @@ public class mainActivityController extends DbUtil implements Initializable {
 
         //FINALLY ADDED TO TableView
         tableView.setItems(data);
-
-        if (conn != null)
-            conn.close();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
 
     }
 

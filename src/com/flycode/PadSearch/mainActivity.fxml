@@ -68,7 +68,7 @@
                             <children>
                                 <ImageView fitHeight="400.0" fitWidth="279.0" layoutX="322.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@kerry.gif" />
+                                        <Image url="@rsrc/kerry.gif" />
                                     </image>
                                 </ImageView>
                                 <TextArea editable="false" layoutX="29.0" layoutY="30.0" prefHeight="82.0" prefWidth="228.0" text="PadSearch owner interface for storage &#10;and management of Tenants" />

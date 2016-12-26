@@ -64,7 +64,7 @@ public class MySqlHelper {
                 resultSet = stmt.executeQuery(sql);
             } catch (SQLException e) {
                 e.printStackTrace();
-                System.out.println("Error in SelectTable");
+                System.out.println("Error in selectTable()");
             }
         return resultSet;
     }
@@ -74,6 +74,7 @@ public class MySqlHelper {
             stmt.executeUpdate(sql);
         }catch (Exception ex){
             ex.printStackTrace();
+            System.out.println("Error in updateTable()");
         }
     }
 
@@ -82,6 +83,7 @@ public class MySqlHelper {
             stmt.executeUpdate(sql);
         }catch (Exception e){
             e.printStackTrace();
+            System.out.println("Error in insertRecord()");
         }
     }
 
@@ -90,6 +92,7 @@ public class MySqlHelper {
             stmt.executeUpdate(sql);
         }catch (Exception e){
             e.printStackTrace();
+            System.out.println("Error in deleteRecord()");
         }
     }
 
