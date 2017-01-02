@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("mainActivity.fxml"));
         primaryStage.setTitle("PadSearch :: Main Window");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 861, 572));
         primaryStage.show();
     }
 

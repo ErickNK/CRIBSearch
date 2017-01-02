@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<DialogPane fx:id="buildingDialog" fx:controller="com.flycode.PadSearch.Dialogs.buildingDialogController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="261.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="261.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flycode.PadSearch.Dialogs.buildingDialogController">
     <header>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="30.0" prefWidth="549.0">
             <children>
@@ -29,8 +29,8 @@
                 <TextField fx:id="tf_Location" layoutX="109.0" layoutY="140.0" text="Location" />
                 <TextField fx:id="tf_License" layoutX="109.0" layoutY="108.0" text="Building's License" />
                 <TextField fx:id="tf_NosOfRooms" layoutX="394.0" layoutY="10.0" text="Building's total capacity" />
-                <Button fx:id="bt_ok" layoutX="425.0" layoutY="140.0" mnemonicParsing="false" text="OK" />
-                <Button fx:id="bt_cancel" layoutX="475.0" layoutY="140.0" mnemonicParsing="false" text="CANCEL" />
+                <Button fx:id="bt_ok" layoutX="425.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnClickOkButton" text="OK" />
+                <Button fx:id="bt_cancel" layoutX="475.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnClickCancelButton" text="CANCEL" />
             </children>
         </AnchorPane>
     </content>

@@ -306,13 +306,10 @@ public class myDialog extends Stage {
         public Builder addConfirmationButton(String buttonCaption, final EventHandler actionHandler) {
             Button confirmationButton = new Button(buttonCaption);
             confirmationButton.setMinWidth(BUTTON_WIDTH);
-            confirmationButton.setOnAction(new EventHandler<ActionEvent>() {
-
-                public void handle(ActionEvent t) {
-                    stage.close();
-                    if (actionHandler != null)
-                        actionHandler.handle(t);
-                }
+            confirmationButton.setOnAction(t -> {
+                stage.close();
+                if (actionHandler != null)
+                    actionHandler.handle(t);
             });
             
             stage.buttonsPanel.getChildren().add(confirmationButton);

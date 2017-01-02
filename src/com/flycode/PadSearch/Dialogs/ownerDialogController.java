@@ -2,17 +2,15 @@ package com.flycode.PadSearch.Dialogs;
 
 
 import com.flycode.PadSearch.Entities.Owner;
-import com.flycode.PadSearch.Entities.Tenant;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ownerDialogController implements Initializable{
+public class ownerDialogController{
     @FXML public Label l_FirstName;
     @FXML public Label l_SecondName;
     @FXML public Label l_Surname;
@@ -28,9 +26,17 @@ public class ownerDialogController implements Initializable{
     @FXML private TextArea ta_bio;
     @FXML private TextField tf_ownerID;
     private Owner owner;
+    private Stage stage;
+    private ResourceBundle bundle;
 
-    public void fillTextFields(Owner t){
-        this.owner= t;
+    public void initialize(Owner owner, ResourceBundle resources,Stage s) {
+        fillTextFields(owner);
+        this.stage = s;
+        this.bundle = resources;
+    }
+
+    private void fillTextFields(Owner o){
+        this.owner= o;
         tf_FirstName.setText(owner.getFirst());
         tf_SecondName.setText(owner.getSecond());
         tf_Surname.setText(owner.getSurname());
@@ -42,19 +48,20 @@ public class ownerDialogController implements Initializable{
 
     public void OnClickOkButton(){
         owner.setFirst(tf_FirstName.getText());
-        owner.setSecond(tf_FirstName.getText());
-        owner.setSurname(tf_FirstName.getText());
-        owner.setTell(Integer.parseInt(tf_FirstName.getText()));
-        owner.setNational_id(Integer.parseInt(tf_FirstName.getText()));
-        owner.setBio(tf_FirstName.getText());
+        owner.setSecond(tf_SecondName.getText());
+        owner.setSurname(tf_SecondName.getText());
+        owner.setTell(Integer.parseInt(tf_tell.getText()));
+        owner.setNational_id(Integer.parseInt(tf_nationalID.getText()));
+        owner.setBio(ta_bio.getText());
         owner.setOwner_id(Integer.parseInt(tf_ownerID.getText()));
+        stage.close();
+    }
+
+    public void OnClickCancelButton(){
+        stage.close();
     }
 
     public Owner result(){
         return owner;
     }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {}
 }

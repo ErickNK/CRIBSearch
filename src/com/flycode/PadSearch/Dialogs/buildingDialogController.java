@@ -1,15 +1,17 @@
 package com.flycode.PadSearch.Dialogs;
 
 import com.flycode.PadSearch.Entities.Building;
+import com.sun.org.apache.regexp.internal.RE;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class buildingDialogController implements Initializable{
+public class buildingDialogController{
     @FXML public Label l_RegistrationID;
     @FXML public Label l_Name;
     @FXML public Label l_OwnerName;
@@ -23,8 +25,16 @@ public class buildingDialogController implements Initializable{
     @FXML private TextField tf_License;
     @FXML private TextField tf_NosOfRooms;
     private Building building;
+    private Stage stage;
+    private ResourceBundle bundle;
 
-    public void fillTextFields(Building b){
+    public void initialize(Building building, ResourceBundle resources, Stage s) {
+        fillTextFields(building);
+        bundle = resources;
+        stage = s;
+    }
+
+    private void fillTextFields(Building b){
         this.building = b;
         tf_registrationID.setText(String.valueOf(building.getRegistration_id()));
         tf_Name.setText(building.getName());
@@ -41,13 +51,14 @@ public class buildingDialogController implements Initializable{
         building.setLicense(tf_License.getText());
         building.setLocation(tf_Location.getText());
         building.setNo_of_rooms(Integer.parseInt(tf_NosOfRooms.getText()));
+        stage.close();
+    }
+
+    public void OnClickCancelButton(){
+        stage.close();
     }
 
     public Building result(){
         return building;
     }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {}
 }

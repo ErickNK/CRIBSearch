@@ -31,31 +31,7 @@ public class mainActivityController implements Initializable {
     @FXML
     TextField login_field;
     @FXML
-    private TextField textField1;
-    @FXML
-    private TextField textField2;
-    @FXML
-    private TextField textField3;
-    @FXML
-    private TextField textField4;
-    @FXML
-    private TextField textField5;
-    @FXML
-    private TextField textField6;
-    @FXML
     private Label info_label;
-    @FXML
-    private Label label1;
-    @FXML
-    private Label label2;
-    @FXML
-    private Label label3;
-    @FXML
-    private Label label4;
-    @FXML
-    private Label label5;
-    @FXML
-    private Label label6;
     @FXML
     private Tab tab_sheets;
     @FXML
@@ -112,7 +88,7 @@ public class mainActivityController implements Initializable {
 
     public void onClickAddButton() {
         try{
-            if (comboBox.getValue().equals("tenant")){
+            /*if (comboBox.getValue().equals("tenant")){
                 Tenant tenant = newTenant();
                 padsql.addTenant(tenant);
             }else if (comboBox.getValue().equals("owner")) {
@@ -121,7 +97,7 @@ public class mainActivityController implements Initializable {
             }else if(comboBox.getValue().equals("building")){
                 Building building = newBuilding();
                 padsql.addBuilding(building);
-            }
+            }*/
         }catch (Exception e){
             myDialog.showThrowable("Error","at onClickAddButton()",e);
         }
@@ -146,7 +122,7 @@ public class mainActivityController implements Initializable {
     }
 
     public void onMouseClickOnTable() {
-        int index = tableView.getSelectionModel().getSelectedIndex();
+        /*int index = tableView.getSelectionModel().getSelectedIndex();
         if (index >= 0) {
             Object string = data.get(index);
             textField1.setText(String.valueOf(((ObservableList) string).get(1)));
@@ -162,24 +138,23 @@ public class mainActivityController implements Initializable {
             textField4.setText("");
             textField5.setText("");
             textField6.setText("");
-        }
+        }*/
     }
 
     public void onClickUpdateButton() {
-        //TODO: make custom dialogs return the required entities.
         try {
             Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
             String id = (String) ((ObservableList) string).get(0);
             if (comboBox.getValue().equals("tenant")) {
-                Tenant tenant = newTenant();
+                Tenant tenant = newTenant(string);
                 PadDialog.tenantDialog("Update Tenant",tenant);
                 padsql.UpdateTenant(tenant, id);
             } else if (comboBox.getValue().equals("owner")) {
-                Owner owner = newOwner();
+                Owner owner = newOwner(string);
                 PadDialog.ownerDialog("Update Owner",owner);
                 padsql.UpdateOwner(owner, id);
             } else if (comboBox.getValue().equals("building")) {
-                Building building = newBuilding();
+                Building building = newBuilding(string);
                 PadDialog.buildingDialog("Update Building",building);
                 padsql.UpdateBuilding(building, id);
             }
@@ -219,13 +194,6 @@ public class mainActivityController implements Initializable {
             tableView.getColumns().addAll(col);
 
         }
-        //labels to display appropriate names for the columns
-        label1.setText(resultSet.getMetaData().getColumnName(2));
-        label2.setText(resultSet.getMetaData().getColumnName(3));
-        label3.setText(resultSet.getMetaData().getColumnName(4));
-        label4.setText(resultSet.getMetaData().getColumnName(5));
-        label5.setText(resultSet.getMetaData().getColumnName(6));
-        label6.setText(resultSet.getMetaData().getColumnName(7));
 
         /********************************
          * Data added to ObservableList *
@@ -246,35 +214,35 @@ public class mainActivityController implements Initializable {
 
     }
 
-    private Tenant newTenant(){
+    private Tenant newTenant(Object string){
         Tenant tenant = new Tenant();
-        tenant.setFirst(textField1.getText());
-        tenant.setSecond(textField2.getText());
-        tenant.setSurname(textField3.getText());
-        tenant.setTell(Integer.parseInt(textField4.getText()));
-        tenant.setNational_ID(Integer.parseInt(textField5.getText()));
-        tenant.setBio(textField6.getText());
+        tenant.setFirst((String) ((ObservableList) string).get(1));
+        tenant.setSecond((String) ((ObservableList) string).get(2));
+        tenant.setSurname((String) ((ObservableList) string).get(3));
+        tenant.setTell(Integer.parseInt((String) ((ObservableList) string).get(4)));
+        tenant.setNational_ID(Integer.parseInt((String) ((ObservableList) string).get(5)));
+        tenant.setBio((String) ((ObservableList) string).get(6));
         return tenant;
     }
-    private Owner newOwner(){
+    private Owner newOwner(Object string){
         Owner owner = new Owner();
-        owner.setFirst(textField1.getText());
-        owner.setSecond(textField2.getText());
-        owner.setSurname(textField3.getText());
-        owner.setNational_id(Integer.parseInt(textField4.getText()));
-        owner.setBio(textField5.getText());
-        owner.setTell(Integer.parseInt(textField6.getText()));
-        owner.setOwner_id(54325434/*Integer.parseInt(textField6.getText())*/);
+        owner.setFirst((String) ((ObservableList) string).get(1));
+        owner.setSecond((String) ((ObservableList) string).get(2));
+        owner.setSurname((String) ((ObservableList) string).get(3));
+        owner.setNational_id(Integer.parseInt((String) ((ObservableList) string).get(4)));
+        owner.setBio((String) ((ObservableList) string).get(5));
+        owner.setTell(Integer.parseInt((String) ((ObservableList) string).get(6)));
+        owner.setOwner_id(Integer.parseInt((String) ((ObservableList) string).get(7)));
         return owner;
     }
-    private Building newBuilding(){
+    private Building newBuilding(Object string){
         Building building = new Building();
-        building.setRegistration_id(Integer.parseInt(textField1.getText()));
-        building.setName(textField2.getText());
-        building.setOwner_Name(textField3.getText());
-        building.setLicense(textField4.getText());
-        building.setLocation(textField5.getText());
-        building.setNo_of_rooms(Integer.parseInt(textField6.getText()));
+        building.setRegistration_id(Integer.parseInt((String) ((ObservableList) string).get(1)));
+        building.setName((String) ((ObservableList) string).get(2));
+        building.setOwner_Name((String) ((ObservableList) string).get(3));
+        building.setLicense((String) ((ObservableList) string).get(4));
+        building.setLocation((String) ((ObservableList) string).get(5));
+        building.setNo_of_rooms(Integer.parseInt((String) ((ObservableList) string).get(6)));
         return building;
     }
 

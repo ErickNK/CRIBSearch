@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 public class PadDialog extends Stage{
     private Scene scene;
     private static Parent root;
+    private static ResourceBundle bundle = ResourceBundle.getBundle("com.flycode.PadSearch.resources.dialog");
 
 
     public static class Builder {
@@ -63,18 +64,13 @@ public class PadDialog extends Stage{
             return this;
         }
 
-        public PadDialog build() {
-            root.requestFocus();
-            return stage;
-        }
-
         public Builder setTenant(Tenant tenant) {
             tenantDialogController controller;
             try {
                 controller = fxmlLoader.getController();
-                controller.fillTextFields(tenant);
+                controller.initialize(tenant,bundle,stage);
             }catch (Exception e){
-                myDialog.showThrowable("Error!!!!","Error while filling TextFields",e);
+                myDialog.showThrowable("Error!!!!","Error while initializing dialog",e);
             }
             return this;
         }
@@ -83,7 +79,7 @@ public class PadDialog extends Stage{
             ownerDialogController controller;
             try {
                 controller = fxmlLoader.getController();
-                controller.fillTextFields(owner);
+                controller.initialize(owner,bundle,stage);
             }catch (Exception e){
                 myDialog.showThrowable("Error!!!!","Error while filling TextFields",e);
             }
@@ -94,11 +90,16 @@ public class PadDialog extends Stage{
             buildingDialogController controller;
             try {
                 controller = fxmlLoader.getController();
-                controller.fillTextFields(building);
+                controller.initialize(building,bundle,stage);
             }catch (Exception e){
                 myDialog.showThrowable("Error!!!!","Error while filling TextFields",e);
             }
             return this;
+        }
+
+        public PadDialog build() {
+            root.requestFocus();
+            return stage;
         }
     }
 
@@ -122,7 +123,6 @@ public class PadDialog extends Stage{
         tenantDialog(title,tenant,null);
     }
 
-    //TODO; finish off the other dialogs.
     public static void ownerDialog(String title,Owner o,Window owner){
         try {
             new Builder()
