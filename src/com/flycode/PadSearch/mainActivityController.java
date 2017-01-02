@@ -176,11 +176,11 @@ public class mainActivityController implements Initializable {
                 padsql.UpdateTenant(tenant, id);
             } else if (comboBox.getValue().equals("owner")) {
                 Owner owner = newOwner();
-                PadDialog.ownerDialog("Update Owner");
+                PadDialog.ownerDialog("Update Owner",owner);
                 padsql.UpdateOwner(owner, id);
             } else if (comboBox.getValue().equals("building")) {
                 Building building = newBuilding();
-                PadDialog.buildingDialog("Update Building");
+                PadDialog.buildingDialog("Update Building",building);
                 padsql.UpdateBuilding(building, id);
             }
         }catch (Exception e){

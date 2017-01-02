@@ -7,7 +7,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<DialogPane fx:id="ownerDialog" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1">
+<DialogPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="com.flycode.PadSearch.Dialogs.ownerDialogController">
     <header>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="30.0" prefWidth="549.0">
             <children>
@@ -18,7 +19,7 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="320.0">
             <children>
                 <Label fx:id="l_FirstName" layoutX="10.0" layoutY="14.0" prefHeight="17.0" prefWidth="63.0" text="FirstName:" />
-                <TextField layoutX="109.0" layoutY="10.0" text="First name" />
+                <TextField fx:id="tf_FirstName" layoutX="109.0" layoutY="10.0" text="First name" />
                 <Label fx:id="l_SecondName" layoutX="10.0" layoutY="45.0" text="SecondName:" />
                 <Label fx:id="l_Surname" layoutX="10.0" layoutY="80.0" text="Surname:" />
                 <Label fx:id="l_Tell" layoutX="10.0" layoutY="112.0" text="TELL" />

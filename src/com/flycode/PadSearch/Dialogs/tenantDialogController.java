@@ -25,29 +25,29 @@ public class tenantDialogController implements Initializable{
     @FXML private TextField tf_nationalID;
     @FXML private TextField tf_tell;
     @FXML private TextArea ta_bio;
-    @FXML Button bt_ok;
-    @FXML Button bt_cancel;
+   private Tenant tenant;
 
-    private PadSqlUtil padsql;
-
-    private Tenant newTenant(){
-        Tenant tenant = new Tenant();
-        tenant.setFirst(tf_FirstName.getText());
-        tenant.setSecond(tf_SecondName.getText());
-        tenant.setSurname(tf_Surname.getText());
-        tenant.setTell(Integer.parseInt(tf_tell.getText()));
-        tenant.setNational_ID(Integer.parseInt(tf_nationalID.getText()));
-        tenant.setBio(ta_bio.getText());
-        return tenant;
-    }
-
-    public void fillTextFields(Tenant tenant){
+    public void fillTextFields(Tenant t){
+        this.tenant = t;
         tf_FirstName.setText(tenant.getFirst());
         tf_SecondName.setText(tenant.getSecond());
         tf_Surname.setText(tenant.getSurname());
         tf_tell.setText(String.valueOf(tenant.getTell()));
         tf_nationalID.setText(String.valueOf(tenant.getNational_ID()));
         ta_bio.setText(tenant.getBio());
+    }
+
+    public void OnClickOkButton(){
+        tenant.setFirst(tf_FirstName.getText());
+        tenant.setSecond(tf_FirstName.getText());
+        tenant.setSurname(tf_FirstName.getText());
+        tenant.setTell(Integer.parseInt(tf_FirstName.getText()));
+        tenant.setNational_ID(Integer.parseInt(tf_FirstName.getText()));
+        tenant.setBio(tf_FirstName.getText());
+    }
+
+    public Tenant result(){
+        return tenant;
     }
 
 

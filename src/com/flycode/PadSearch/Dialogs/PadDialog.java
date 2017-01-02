@@ -1,18 +1,16 @@
 package com.flycode.PadSearch.Dialogs;
 
+import com.flycode.PadSearch.Entities.Building;
+import com.flycode.PadSearch.Entities.Owner;
 import com.flycode.PadSearch.Entities.Tenant;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class PadDialog extends Stage{
@@ -22,11 +20,12 @@ public class PadDialog extends Stage{
 
     public static class Builder {
         private PadDialog stage;
-        private String dialog;
+        private Parent dialog;
+        private String type;
         private FXMLLoader fxmlLoader;
 
 
-        private Builder create() throws Exception {
+        private Builder create() {
             //Use resource bundles to allow different locale
             stage = new PadDialog();
             stage.setResizable(false);
@@ -34,26 +33,28 @@ public class PadDialog extends Stage{
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setIconified(false);
             stage.centerOnScreen();
+            return this;
+        }
 
+        private Builder createParent() throws Exception{
             //Parent node
-            fxmlLoader = new FXMLLoader(getClass().getResource(dialog));
-            root = fxmlLoader.load();
+            fxmlLoader = new FXMLLoader(getClass().getResource(type));
+            root = /*dialog;*/fxmlLoader.load();
             stage.scene = new Scene(root);
             stage.setScene(stage.scene);
             return this;
         }
 
-        public Builder setOwner(Window owner) {
-            if (owner != null) {
-                stage.initOwner(owner);
-                /*stage.borderPanel.setMaxWidth(owner.getWidth());
-                stage.borderPanel.setMaxHeight(owner.getHeight());*/
-            }
+        private Builder setType(String t){
+            this.type = t;
             return this;
         }
 
-        private Builder setType(String dialog) {
-            this.dialog = dialog;
+        public Builder setOwner(Window owner) {
+            //TODO; set max height and width according to owner
+            if (owner != null) {
+                stage.initOwner(owner);
+            }
             return this;
         }
 
@@ -68,11 +69,35 @@ public class PadDialog extends Stage{
         }
 
         public Builder setTenant(Tenant tenant) {
-            ResourceBundle bundle = ResourceBundle.getBundle("com.flycode.PadSearch.resources.dialog");
-            tenantDialogController controller = new tenantDialogController();
-            controller.initialize(getClass().getResource(dialog),bundle);
-            fxmlLoader.setController(controller);
-            controller.fillTextFields(tenant);
+            tenantDialogController controller;
+            try {
+                controller = fxmlLoader.getController();
+                controller.fillTextFields(tenant);
+            }catch (Exception e){
+                myDialog.showThrowable("Error!!!!","Error while filling TextFields",e);
+            }
+            return this;
+        }
+
+        public Builder setOwner2(Owner owner) {
+            ownerDialogController controller;
+            try {
+                controller = fxmlLoader.getController();
+                controller.fillTextFields(owner);
+            }catch (Exception e){
+                myDialog.showThrowable("Error!!!!","Error while filling TextFields",e);
+            }
+            return this;
+        }
+
+        public Builder setBuilding(Building building) {
+            buildingDialogController controller;
+            try {
+                controller = fxmlLoader.getController();
+                controller.fillTextFields(building);
+            }catch (Exception e){
+                myDialog.showThrowable("Error!!!!","Error while filling TextFields",e);
+            }
             return this;
         }
     }
@@ -80,11 +105,12 @@ public class PadDialog extends Stage{
     public static void tenantDialog(String title,Tenant tenant,Window owner){
         try {
             new Builder()
-                    .setType("tenantDialog.fxml")
                     .create()
+                    .setType("tenantDialog.fxml")
+                    .createParent()
+                    .setTenant(tenant)
                     .setOwner(owner)
                     .setTitle(title)
-                    .setTenant(tenant)
                     .build()
                     .show();
         } catch (Exception e) {
@@ -96,11 +122,14 @@ public class PadDialog extends Stage{
         tenantDialog(title,tenant,null);
     }
 
-    public static void ownerDialog(String title,Window owner){
+    //TODO; finish off the other dialogs.
+    public static void ownerDialog(String title,Owner o,Window owner){
         try {
             new Builder()
+                    .create()
                     .setType("ownerDialog.fxml")
-                    .create()
+                    .createParent()
+                    .setOwner2(o)
                     .setOwner(owner)
                     .setTitle(title)
                     .build()
@@ -110,15 +139,17 @@ public class PadDialog extends Stage{
         }
     }
 
-    public static void ownerDialog(String title){
-        ownerDialog(title,null);
+    public static void ownerDialog(String title,Owner o){
+        ownerDialog(title,o,null);
     }
 
-    public static void buildingDialog(String title,Window owner){
+    public static void buildingDialog(String title,Building building,Window owner){
         try {
             new Builder()
-                    .setType("buildingDialog.fxml")
                     .create()
+                    .setType("buildingDialog.fxml")
+                    .createParent()
+                    .setBuilding(building)
                     .setOwner(owner)
                     .setTitle(title)
                     .build()
@@ -128,8 +159,8 @@ public class PadDialog extends Stage{
         }
     }
 
-    public static void buildingDialog(String title){
-        buildingDialog(title,null);
+    public static void buildingDialog(String title,Building building){
+        buildingDialog(title,building,null);
     }
 
 }
