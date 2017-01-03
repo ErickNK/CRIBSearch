@@ -15,6 +15,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import org.controlsfx.control.spreadsheet.GridBase;
+import org.controlsfx.control.spreadsheet.SpreadsheetCell;
+import org.controlsfx.control.spreadsheet.SpreadsheetCellType;
+import org.controlsfx.control.spreadsheet.SpreadsheetView;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -38,6 +42,7 @@ public class mainActivityController implements Initializable {
     private Button loadButton;
     @FXML
     private Button deleteButton;
+    @FXML SpreadsheetView spv;
 
     private ResultSet resultSet;
     private ObservableList<String> tableNames = FXCollections.observableArrayList();
@@ -79,8 +84,10 @@ public class mainActivityController implements Initializable {
     public void onClickLoadButton() {
         data.clear();
         tableView.getColumns().clear();
+        spv.getColumns().clear();
         try {
             buildData(SelectedTable);
+            BuildSpreadSheet(SelectedTable);
         } catch (SQLException e) {
             myDialog.showThrowable("Error","at onClickLoadButton()",e);
         }
@@ -211,6 +218,32 @@ public class mainActivityController implements Initializable {
 
         //FINALLY ADDED TO TableView
         tableView.setItems(data);
+    }
+
+    private void BuildSpreadSheet(String table) throws SQLException{
+        try{
+            resultSet = padsql.selectTable(table);
+        } catch (Exception e){
+            myDialog.showThrowable("Error","Error in loading table.",e);
+        }
+
+        int rowCount = 1;
+        int columnCount = resultSet.getMetaData().getColumnCount();
+        ObservableList<ObservableList<SpreadsheetCell>> rows = FXCollections.observableArrayList();
+        while (resultSet.next()) {
+            //Iterate Row
+            final ObservableList<SpreadsheetCell> list = FXCollections.observableArrayList();
+            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                //Iterate Column
+                list.add(SpreadsheetCellType.STRING.createCell(rowCount, i, 1, 1,resultSet.getString(i)));
+            }
+            rows.add(list);
+            ++rowCount;
+        }
+        GridBase grid = new GridBase(rowCount, columnCount);
+        grid.setRows(rows);
+        spv = new SpreadsheetView();
+        spv.setGrid(grid);
 
     }
 
