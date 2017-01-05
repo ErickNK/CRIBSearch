@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("mainActivity.fxml"));
-        primaryStage.setTitle("PadSearch :: Main Window");
+        primaryStage.setTitle("PadSearch Database");
         primaryStage.setScene(new Scene(root, 861, 572));
         primaryStage.show();
     }

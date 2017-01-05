@@ -26,22 +26,14 @@ import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 public class mainActivityController implements Initializable {
-    @FXML
-    ComboBox<String> comboBox;
-    @FXML
-    TableView tableView;
-    @FXML
-    PasswordField password_field;
-    @FXML
-    TextField login_field;
-    @FXML
-    private Label info_label;
-    @FXML
-    private Tab tab_sheets;
-    @FXML
-    private Button loadButton;
-    @FXML
-    private Button deleteButton;
+    @FXML ComboBox<String> comboBox;
+    @FXML TableView tableView;
+    @FXML PasswordField password_field;
+    @FXML TextField login_field;
+    @FXML private Label info_label;
+    @FXML private Tab tab_sheets;
+    @FXML private Button loadButton;
+    @FXML private Button deleteButton;
     @FXML SpreadsheetView spv;
 
     private ResultSet resultSet;
