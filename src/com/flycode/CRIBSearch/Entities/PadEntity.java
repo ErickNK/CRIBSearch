@@ -1,7 +1,7 @@
-package com.flycode.PadSearch.Entities;
+package com.flycode.CRIBSearch.Entities;
 
 /**
- * <p>This is the base class for all entities in the PadSearch PadEntity Model and ERD</p>
+ * <p>This is the base class for all entities in the CRIBSearch PadEntity Model and ERD</p>
  */
 public class PadEntity<T> {
     private int id;

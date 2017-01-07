@@ -1,4 +1,4 @@
-package com.flycode.PadSearch.Constants;
+package com.flycode.CRIBSearch.Constants;
 
 /**
  * Created by erikn on 12/21/2016.

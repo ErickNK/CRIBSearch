@@ -1,4 +1,4 @@
-package com.flycode.PadSearch.Constants;
+package com.flycode.CRIBSearch.Constants;
 
 /**
  * <p>Class contains all the crutial constants for the system to function.<br/>
@@ -16,7 +16,7 @@ package com.flycode.PadSearch.Constants;
 //TODO: check on making Constants classes better.
 public class Constants {
     /**
-     * <p>Holds the Database name for PadSearch</p>
+     * <p>Holds the Database name for CRIBSearch</p>
      * */
     public String DATABASE_NAME = "padsearch";
 }

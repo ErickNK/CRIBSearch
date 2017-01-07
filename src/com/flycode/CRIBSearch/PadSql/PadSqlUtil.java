@@ -1,13 +1,13 @@
-package com.flycode.PadSearch.PadSql;
+package com.flycode.CRIBSearch.PadSql;
 
 
-import com.flycode.PadSearch.Constants.BuildingTable;
-import com.flycode.PadSearch.Constants.Constants;
-import com.flycode.PadSearch.Constants.OwnerTable;
-import com.flycode.PadSearch.Constants.TenantTable;
-import com.flycode.PadSearch.Entities.Building;
-import com.flycode.PadSearch.Entities.Owner;
-import com.flycode.PadSearch.Entities.Tenant;
+import com.flycode.CRIBSearch.Constants.BuildingTable;
+import com.flycode.CRIBSearch.Constants.Constants;
+import com.flycode.CRIBSearch.Constants.OwnerTable;
+import com.flycode.CRIBSearch.Constants.TenantTable;
+import com.flycode.CRIBSearch.Entities.Building;
+import com.flycode.CRIBSearch.Entities.Owner;
+import com.flycode.CRIBSearch.Entities.Tenant;
 
 import java.sql.ResultSet;
 
@@ -164,7 +164,7 @@ public class PadSqlUtil extends MySqlHelper{
     }
 
     /**
-     * <p>Used to select between the different PadSearch tables</p>
+     * <p>Used to select between the different CRIBSearch tables</p>
      * @param tableNo the table number to be parsed for retrieving the selection<br/>
      *                1-client-test<br/>
      *                2-tenant<br/>

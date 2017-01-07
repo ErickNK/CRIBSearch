@@ -1,8 +1,7 @@
-package com.flycode.PadSearch.Dialogs;
+package com.flycode.CRIBSearch.Dialogs;
 
-import com.flycode.PadSearch.Entities.Building;
-import com.flycode.PadSearch.Entities.Owner;
-import com.flycode.PadSearch.Entities.Tenant;
+import com.flycode.CRIBSearch.PadSql.PadSqlUtil;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,18 +9,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
-
 import java.util.ResourceBundle;
 
 public class PadDialog extends Stage{
     private Scene scene;
-    private static Parent root;
-    private static ResourceBundle bundle = ResourceBundle.getBundle("com.flycode.PadSearch.resources.dialog");
+    private Parent root;
+    private ResourceBundle bundle = ResourceBundle.getBundle("com.flycode.CRIBSearch.resources.dialog");
 
-
-    public static class Builder {
+    public  class Builder {
         private PadDialog stage;
-        private Parent dialog;
         private String type;
         private FXMLLoader fxmlLoader;
 
@@ -40,7 +36,7 @@ public class PadDialog extends Stage{
         private Builder createParent() throws Exception{
             //Parent node
             fxmlLoader = new FXMLLoader(getClass().getResource(type));
-            root = /*dialog;*/fxmlLoader.load();
+            root = fxmlLoader.load();
             stage.scene = new Scene(root);
             stage.setScene(stage.scene);
             return this;
@@ -51,7 +47,7 @@ public class PadDialog extends Stage{
             return this;
         }
 
-        public Builder setOwner(Window owner) {
+        public Builder setWindowOwner(Window owner) {
             //TODO; set max height and width according to owner
             if (owner != null) {
                 stage.initOwner(owner);
@@ -64,33 +60,33 @@ public class PadDialog extends Stage{
             return this;
         }
 
-        public Builder setTenant(Tenant tenant) {
+        public Builder setTenant(ObservableList list,PadSqlUtil p,int mode) {
             tenantDialogController controller;
             try {
                 controller = fxmlLoader.getController();
-                controller.initialize(tenant,bundle,stage);
+                controller.initialize(list,bundle,stage,p,mode);
             }catch (Exception e){
                 myDialog.showThrowable("Error!!!!","Error while initializing dialog",e);
             }
             return this;
         }
 
-        public Builder setOwner2(Owner owner) {
+        public Builder setOwner(ObservableList list,PadSqlUtil p,int mode) {
             ownerDialogController controller;
             try {
                 controller = fxmlLoader.getController();
-                controller.initialize(owner,bundle,stage);
+                controller.initialize(list,bundle,stage,p,mode);
             }catch (Exception e){
                 myDialog.showThrowable("Error!!!!","Error while filling TextFields",e);
             }
             return this;
         }
 
-        public Builder setBuilding(Building building) {
+        public Builder setBuilding(ObservableList list,PadSqlUtil p,int mode) {
             buildingDialogController controller;
             try {
                 controller = fxmlLoader.getController();
-                controller.initialize(building,bundle,stage);
+                controller.initialize(list,bundle,stage,p,mode);
             }catch (Exception e){
                 myDialog.showThrowable("Error!!!!","Error while filling TextFields",e);
             }
@@ -103,14 +99,14 @@ public class PadDialog extends Stage{
         }
     }
 
-    public static void tenantDialog(String title,Tenant tenant,Window owner){
+    public void tenantDialog(String title,ObservableList list,PadSqlUtil p,int mode,Window owner){
         try {
             new Builder()
                     .create()
                     .setType("tenantDialog.fxml")
                     .createParent()
-                    .setTenant(tenant)
-                    .setOwner(owner)
+                    .setTenant(list,p,mode)
+                    .setWindowOwner(owner)
                     .setTitle(title)
                     .build()
                     .show();
@@ -119,18 +115,18 @@ public class PadDialog extends Stage{
         }
     }
 
-    public static void tenantDialog(String title,Tenant tenant){
-        tenantDialog(title,tenant,null);
+    public void tenantDialog(String title,ObservableList list,PadSqlUtil p,int mode){
+        tenantDialog(title,list,p,mode,null);
     }
 
-    public static void ownerDialog(String title,Owner o,Window owner){
+    public void ownerDialog(String title,ObservableList list,PadSqlUtil p,int mode,Window owner){
         try {
             new Builder()
                     .create()
                     .setType("ownerDialog.fxml")
                     .createParent()
-                    .setOwner2(o)
-                    .setOwner(owner)
+                    .setOwner(list,p,mode)
+                    .setWindowOwner(owner)
                     .setTitle(title)
                     .build()
                     .show();
@@ -139,18 +135,18 @@ public class PadDialog extends Stage{
         }
     }
 
-    public static void ownerDialog(String title,Owner o){
-        ownerDialog(title,o,null);
+    public void ownerDialog(String title,ObservableList list,PadSqlUtil p,int mode){
+        ownerDialog(title,list,p,mode,null);
     }
 
-    public static void buildingDialog(String title,Building building,Window owner){
+    public void buildingDialog(String title,ObservableList list,PadSqlUtil p,int mode,Window owner){
         try {
             new Builder()
                     .create()
                     .setType("buildingDialog.fxml")
                     .createParent()
-                    .setBuilding(building)
-                    .setOwner(owner)
+                    .setBuilding(list,p,mode)
+                    .setWindowOwner(owner)
                     .setTitle(title)
                     .build()
                     .show();
@@ -159,8 +155,8 @@ public class PadDialog extends Stage{
         }
     }
 
-    public static void buildingDialog(String title,Building building){
-        buildingDialog(title,building,null);
+    public void buildingDialog(String title,ObservableList list,PadSqlUtil p,int mode){
+        buildingDialog(title,list,p,mode,null);
     }
 
 }

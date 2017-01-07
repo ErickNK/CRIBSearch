@@ -22,7 +22,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0"
             prefWidth="861.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.flycode.PadSearch.mainActivityController">
+            fx:controller="com.flycode.CRIBSearch.mainActivityController">
     <TabPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="861.0"
              tabClosingPolicy="UNAVAILABLE">
         <Tab text="Login">
@@ -88,8 +88,8 @@
                            pickOnBounds="true" preserveRatio="true">
                     <Image url="@rsrc/kerry.gif"/>
                 </ImageView>
-                <SpreadsheetView fx:id="spv" layoutX="14.0" layoutY="16.0" prefHeight="466.0"
-                                 prefWidth="543.0"/>
+                <!--<SpreadsheetView fx:id="spv" layoutX="14.0" layoutY="16.0" prefHeight="466.0"
+                                 prefWidth="543.0"/>-->
             </AnchorPane>
         </Tab>
     </TabPane>

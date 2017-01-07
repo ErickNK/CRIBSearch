@@ -1,4 +1,4 @@
-package com.flycode.PadSearch.PadSql;
+package com.flycode.CRIBSearch.PadSql;
 import java.sql.*;
 
 /**

@@ -1,11 +1,7 @@
-package com.flycode.PadSearch;
+package com.flycode.CRIBSearch;
 
-import com.flycode.PadSearch.Dialogs.PadDialog;
-import com.flycode.PadSearch.Dialogs.myDialog;
-import com.flycode.PadSearch.Entities.Building;
-import com.flycode.PadSearch.Entities.Owner;
-import com.flycode.PadSearch.Entities.Tenant;
-import com.flycode.PadSearch.PadSql.PadSqlUtil;
+import com.flycode.CRIBSearch.Dialogs.*;
+import com.flycode.CRIBSearch.PadSql.PadSqlUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -15,9 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
-import org.controlsfx.control.spreadsheet.GridBase;
-import org.controlsfx.control.spreadsheet.SpreadsheetCell;
-import org.controlsfx.control.spreadsheet.SpreadsheetCellType;
 import org.controlsfx.control.spreadsheet.SpreadsheetView;
 
 import java.net.URL;
@@ -41,8 +34,8 @@ public class mainActivityController implements Initializable {
     private ObservableList data = FXCollections.observableArrayList();
     private String SelectedTable;
     private PadSqlUtil padsql;
-    private ResourceBundle dialogResources = ResourceBundle.getBundle("com.flycode.PadSearch.resources.dialog", Locale.getDefault());
-
+    private ResourceBundle dialogResources = ResourceBundle.getBundle("com.flycode.CRIBSearch.resources.dialog", Locale.getDefault());
+    private PadDialog padDialog = new PadDialog();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -69,6 +62,7 @@ public class mainActivityController implements Initializable {
     }
 
     private void fillComboBox() {
+        //TODO: add automatic filling of table names form database itself
         tableNames.addAll("client_test","tenant","owner","building");
         comboBox.setItems(tableNames);
     }
@@ -76,10 +70,10 @@ public class mainActivityController implements Initializable {
     public void onClickLoadButton() {
         data.clear();
         tableView.getColumns().clear();
-        spv.getColumns().clear();
+        /*spv.getColumns().clear();*/
         try {
             buildData(SelectedTable);
-            BuildSpreadSheet(SelectedTable);
+            /*buildSpreadSheet(SelectedTable);*/
         } catch (SQLException e) {
             myDialog.showThrowable("Error","at onClickLoadButton()",e);
         }
@@ -87,16 +81,15 @@ public class mainActivityController implements Initializable {
 
     public void onClickAddButton() {
         try{
-            /*if (comboBox.getValue().equals("tenant")){
-                Tenant tenant = newTenant();
-                padsql.addTenant(tenant);
+            if (comboBox.getValue().equals("tenant")){
+                padDialog.tenantDialog("Add a new tenant",null,padsql,1);
             }else if (comboBox.getValue().equals("owner")) {
-                Owner owner = newOwner();
-                padsql.addOwner(owner);
+                padDialog.ownerDialog("Add a new Owner",null,padsql,1);
             }else if(comboBox.getValue().equals("building")){
-                Building building = newBuilding();
-                padsql.addBuilding(building);
-            }*/
+                padDialog.buildingDialog("Add a new Building",null,padsql,1);
+            }else{
+                myDialog.showWarning("Warning!!!","No such table");
+            }
         }catch (Exception e){
             myDialog.showThrowable("Error","at onClickAddButton()",e);
         }
@@ -142,20 +135,15 @@ public class mainActivityController implements Initializable {
 
     public void onClickUpdateButton() {
         try {
-            Object string = data.get(tableView.getSelectionModel().getSelectedIndex());
-            String id = (String) ((ObservableList) string).get(0);
+            ObservableList list = (ObservableList) data.get(tableView.getSelectionModel().getSelectedIndex());
             if (comboBox.getValue().equals("tenant")) {
-                Tenant tenant = newTenant(string);
-                PadDialog.tenantDialog("Update Tenant",tenant);
-                padsql.UpdateTenant(tenant, id);
+                padDialog.tenantDialog("Update Tenant",list,padsql,2);
             } else if (comboBox.getValue().equals("owner")) {
-                Owner owner = newOwner(string);
-                PadDialog.ownerDialog("Update Owner",owner);
-                padsql.UpdateOwner(owner, id);
+                padDialog.ownerDialog("Update Owner",list,padsql,2);
             } else if (comboBox.getValue().equals("building")) {
-                Building building = newBuilding(string);
-                PadDialog.buildingDialog("Update Building",building);
-                padsql.UpdateBuilding(building, id);
+                padDialog.buildingDialog("Update Building",list,padsql,2);
+            }else{
+                myDialog.showWarning("WARNING","NO SUCH TABLE");
             }
         }catch (Exception e){
             myDialog.showThrowable("Error","at onClickUpdateButton()",e);
@@ -212,7 +200,7 @@ public class mainActivityController implements Initializable {
         tableView.setItems(data);
     }
 
-    private void BuildSpreadSheet(String table) throws SQLException{
+    /*private void buildSpreadSheet(String table) throws SQLException{
         try{
             resultSet = padsql.selectTable(table);
         } catch (Exception e){
@@ -237,39 +225,5 @@ public class mainActivityController implements Initializable {
         spv = new SpreadsheetView();
         spv.setGrid(grid);
 
-    }
-
-    private Tenant newTenant(Object string){
-        Tenant tenant = new Tenant();
-        tenant.setFirst((String) ((ObservableList) string).get(1));
-        tenant.setSecond((String) ((ObservableList) string).get(2));
-        tenant.setSurname((String) ((ObservableList) string).get(3));
-        tenant.setTell(Integer.parseInt((String) ((ObservableList) string).get(4)));
-        tenant.setNational_ID(Integer.parseInt((String) ((ObservableList) string).get(5)));
-        tenant.setBio((String) ((ObservableList) string).get(6));
-        return tenant;
-    }
-    private Owner newOwner(Object string){
-        Owner owner = new Owner();
-        owner.setFirst((String) ((ObservableList) string).get(1));
-        owner.setSecond((String) ((ObservableList) string).get(2));
-        owner.setSurname((String) ((ObservableList) string).get(3));
-        owner.setNational_id(Integer.parseInt((String) ((ObservableList) string).get(4)));
-        owner.setBio((String) ((ObservableList) string).get(5));
-        owner.setTell(Integer.parseInt((String) ((ObservableList) string).get(6)));
-        owner.setOwner_id(Integer.parseInt((String) ((ObservableList) string).get(7)));
-        return owner;
-    }
-    private Building newBuilding(Object string){
-        Building building = new Building();
-        building.setRegistration_id(Integer.parseInt((String) ((ObservableList) string).get(1)));
-        building.setName((String) ((ObservableList) string).get(2));
-        building.setOwner_Name((String) ((ObservableList) string).get(3));
-        building.setLicense((String) ((ObservableList) string).get(4));
-        building.setLocation((String) ((ObservableList) string).get(5));
-        building.setNo_of_rooms(Integer.parseInt((String) ((ObservableList) string).get(6)));
-        return building;
-    }
-
-
+    }*/
 }

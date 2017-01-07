@@ -1,4 +1,4 @@
-package com.flycode.PadSearch;
+package com.flycode.CRIBSearch;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("mainActivity.fxml"));
-        primaryStage.setTitle("PadSearch Database");
+        primaryStage.setTitle("CRIBSearch Database");
         primaryStage.setScene(new Scene(root, 861, 572));
         primaryStage.show();
     }

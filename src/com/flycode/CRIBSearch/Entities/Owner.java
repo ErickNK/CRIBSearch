@@ -1,7 +1,7 @@
-package com.flycode.PadSearch.Entities;
+package com.flycode.CRIBSearch.Entities;
 
 /**
- * <p>Class used to implement the entity Owner of the PadSearch Entity Model.</p>
+ * <p>Class used to implement the entity Owner of the CRIBSearch Entity Model.</p>
  * <p>It implements Attributes of the relation <b>Owner</b> as variables.</p>
  */
 public class Owner extends PadEntity<Owner> {

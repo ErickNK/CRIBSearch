@@ -18,47 +18,38 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
-<?import org.controlsfx.control.spreadsheet.SpreadsheetView?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flycode.PadSearch.mainActivityController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="861.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flycode.CRIBSearch.mainActivityController">
     <children>
         <TabPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="861.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="login">
                     <content>
-                        <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="257.0"
-                                    prefWidth="212.0">
-                            <Label fx:id="info_label" layoutX="28.0" layoutY="323.0" text="logging" visible="false">
+                        <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="257.0" prefWidth="212.0">
+                            <Label fx:id="info_label" layoutX="28.0" layoutY="497.0" prefHeight="28.0" prefWidth="51.0" text="logging" visible="false">
                                 <font>
-                                    <Font name="System Bold" size="14.0"/>
+                                    <Font name="System Bold" size="14.0" />
                                 </font>
                             </Label>
-                            <Pane layoutX="64.0" layoutY="138.0" prefHeight="188.0" prefWidth="265.0"
-                                  style="-fx-background-color: white;">
-                                <Button layoutX="205.0" layoutY="149.0" mnemonicParsing="false"
-                                        onAction="#onClickLoginButton" text="Login"/>
-                                <Label layoutX="26.0" layoutY="59.0" text="Username"/>
-                                <Label layoutX="28.0" layoutY="98.0" text="Password"/>
-                                <PasswordField fx:id="password_field" layoutX="102.0" layoutY="94.0"
-                                               promptText="password"/>
-                                <TextField fx:id="login_field" layoutX="102.0" layoutY="55.0"
-                                           promptText="username"/>
-                                <Rectangle arcHeight="10.0" arcWidth="5.0" disable="true" fill="TRANSPARENT"
-                                           height="191.0" stroke="BLACK" strokeType="INSIDE" width="264.0">
+                            <Pane layoutX="64.0" layoutY="138.0" prefHeight="188.0" prefWidth="265.0" style="-fx-background-color: white;">
+                                <Button layoutX="205.0" layoutY="149.0" mnemonicParsing="false" onAction="#onClickLoginButton" text="Login" />
+                                <Label layoutX="26.0" layoutY="59.0" text="Username" />
+                                <Label layoutX="28.0" layoutY="98.0" text="Password" />
+                                <PasswordField fx:id="password_field" layoutX="102.0" layoutY="94.0" promptText="password" />
+                                <TextField fx:id="login_field" layoutX="102.0" layoutY="55.0" promptText="username" />
+                                <Rectangle arcHeight="10.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="191.0" stroke="BLACK" strokeType="INSIDE" width="264.0">
                                     <effect>
-                                        <Glow level="1.0"/>
+                                        <Glow level="1.0" />
                                     </effect>
                                     <cursor>
-                                        <Cursor fx:constant="NONE"/>
+                                        <Cursor fx:constant="NONE" />
                                     </cursor>
                                 </Rectangle>
                             </Pane>
                             <TextFlow layoutX="405.0" layoutY="138.0" prefHeight="200.0" prefWidth="420.0">
-                                <Text fill="#b2acac" strokeType="OUTSIDE" strokeWidth="0.0"
-                                      text="WELCOME TO PadSearch" textAlignment="CENTER"
-                                      wrappingWidth="369.7890625">
+                                <Text fill="#b2acac" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME TO CRIBSearch" textAlignment="CENTER" wrappingWidth="369.7890625">
                                     <font>
-                                        <Font name="SansSerif Regular" size="52.0"/>
+                                        <Font name="SansSerif Regular" size="52.0" />
                                     </font>
                                 </Text>
                             </TextFlow>
@@ -88,7 +79,7 @@
                                         <Image url="@rsrc/kerry.gif" />
                                     </image>
                                 </ImageView>
-                                <SpreadsheetView fx:id="spv" layoutX="14.0" layoutY="16.0" prefHeight="466.0" prefWidth="543.0" />
+                               <!-- <SpreadsheetView fx:id="spv" layoutX="14.0" layoutY="16.0" prefHeight="466.0" prefWidth="543.0" />-->
                             </children>
                         </AnchorPane>
                     </content>
