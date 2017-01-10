@@ -78,8 +78,6 @@ public class myDialog extends Stage {
         private static final double MARGIN = 10;
         private static ResourceBundle resources;
         private static ResourceBundle icons = ResourceBundle.getBundle("com.flycode.CRIBSearch.resources.assets");
-        //TODO: make getting ICON_PATH more automated and stable.
-        //private static final String ICON_PATH = resources.getString("ICON_PATH");
         private myDialog stage;
 
 

@@ -7,18 +7,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
 import org.controlsfx.control.spreadsheet.SpreadsheetView;
 
-import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
-public class mainActivityController implements Initializable {
+public class mainActivityController {
     @FXML ComboBox<String> comboBox;
     @FXML TableView tableView;
     @FXML PasswordField password_field;
@@ -37,16 +35,15 @@ public class mainActivityController implements Initializable {
     private ResourceBundle dialogResources = ResourceBundle.getBundle("com.flycode.CRIBSearch.resources.dialog", Locale.getDefault());
     private PadDialog padDialog = new PadDialog();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
+    public void initialize(PadSqlUtil p) {
+        this.padsql = p;
     }
 
     public void onClickLoginButton() {
         info_label.setVisible(true);
         info_label.setText("logging in...");
         info_label.setTextFill(Color.BLACK);
-        padsql = new PadSqlUtil(login_field.getText(),password_field.getText());
+        padsql.setUsername(login_field.getText()).setPass(password_field.getText()).ConnectDB();
         if (padsql.CONNECTION_STATUS) {
             tab_sheets.setDisable(false);
             info_label.setText("login Successful");

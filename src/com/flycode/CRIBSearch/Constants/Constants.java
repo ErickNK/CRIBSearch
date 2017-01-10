@@ -18,5 +18,5 @@ public class Constants {
     /**
      * <p>Holds the Database name for CRIBSearch</p>
      * */
-    public String DATABASE_NAME = "padsearch";
+    public static String DATABASE_NAME = "padsearch";
 }

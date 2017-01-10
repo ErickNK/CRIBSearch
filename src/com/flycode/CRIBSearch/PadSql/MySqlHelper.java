@@ -106,4 +106,12 @@ public class MySqlHelper {
             e.printStackTrace();
         }
     }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public void setPass(String pass) {
+        Pass = pass;
+    }
 }

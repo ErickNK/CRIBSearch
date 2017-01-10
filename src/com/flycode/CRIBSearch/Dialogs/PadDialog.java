@@ -48,9 +48,11 @@ public class PadDialog extends Stage{
         }
 
         public Builder setWindowOwner(Window owner) {
-            //TODO; set max height and width according to owner
+
             if (owner != null) {
                 stage.initOwner(owner);
+                stage.root.maxHeight(owner.getHeight());
+                stage.root.maxWidth(owner.getWidth());
             }
             return this;
         }

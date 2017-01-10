@@ -11,25 +11,37 @@ import com.flycode.CRIBSearch.Entities.Tenant;
 
 import java.sql.ResultSet;
 
-
-//TODO: make PadSqlUtil independent form the MySqlHelper class to be able to connect to any other DBMS
-public class PadSqlUtil extends MySqlHelper{
+public class PadSqlUtil{
     public boolean CONNECTION_STATUS = false;
-//    private Object data;
+    private String Username;
+    private String Pass;
+    private MySqlHelper sqlHelper;
 
-    public PadSqlUtil(String Username,String Pass){
-        super(Username,Pass);
-        ConnectDB();
+    public PadSqlUtil(MySqlHelper s){
+        this.sqlHelper = s;
     }
 
-    private void ConnectDB(){
-        Constants constants =  new Constants();
-        if(super.connectDB(constants.DATABASE_NAME)) {
-            CONNECTION_STATUS = true;
-        }
-        else{
-            CONNECTION_STATUS = false;
-            System.out.println("Error in getting connection");
+    public PadSqlUtil setUsername(String u){
+        this.Username = u;
+        return this;
+    }
+    public PadSqlUtil setPass(String p){
+        this.Pass = p;
+        return this;
+    }
+    public void ConnectDB(){
+        try {
+            sqlHelper.setUsername(Username);
+            sqlHelper.setPass(Pass);
+            if(sqlHelper.connectDB(Constants.DATABASE_NAME)) {
+                CONNECTION_STATUS = true;
+            }
+            else{
+                CONNECTION_STATUS = false;
+                System.out.println("Error in getting connection");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -53,7 +65,7 @@ public class PadSqlUtil extends MySqlHelper{
                 +"\'"+data.getTell()+"\',"
                 +"\'"+data.getNational_ID()+"\',"
                 +"\'"+data.getBio()+"\');";
-        super.insertRecord(sql);
+        sqlHelper.insertRecord(sql);
     }
     public void addBuilding(Building data){
         BuildingTable buildingTable = new BuildingTable();
@@ -70,7 +82,7 @@ public class PadSqlUtil extends MySqlHelper{
                 +"\'"+data.getLicense()+"\',"
                 +"\'"+data.getLocation()+"\',"
                 +"\'"+data.getNo_of_rooms()+"\');";
-        super.insertRecord(sql);
+        sqlHelper.insertRecord(sql);
     }
     public void addOwner(Owner data){
         OwnerTable ownerTable = new OwnerTable();
@@ -89,7 +101,7 @@ public class PadSqlUtil extends MySqlHelper{
                 +"\'"+data.getBio()+"\',"
                 +"\'"+data.getTell()+"\',"
                 +"\'"+data.getOwner_id()+"\');";
-        super.insertRecord(sql);
+        sqlHelper.insertRecord(sql);
     }
 
     //DELETE RECORDS
@@ -97,21 +109,21 @@ public class PadSqlUtil extends MySqlHelper{
         TenantTable tenantTable = new TenantTable();
         String sql = "DELETE FROM " + tenantTable.TABLE_NAME
                 + " WHERE  id=\'" + id+"\';";
-        super.deleteRecord(sql);
+        sqlHelper.deleteRecord(sql);
 
     }
     public void DeleteOwner(String id){
         OwnerTable table = new OwnerTable();
         String sql = "DELETE FROM " + table.TABLE_NAME
                 + " WHERE  id=\'" + id+"\';";
-        super.deleteRecord(sql);
+        sqlHelper.deleteRecord(sql);
 
     }
     public void DeleteBuilding(String id){
         BuildingTable table = new BuildingTable();
         String sql = "DELETE FROM " + table.TABLE_NAME
                 + " WHERE  id=\'" + id+"\';";
-        super.deleteRecord(sql);
+        sqlHelper.deleteRecord(sql);
     }
 
     //UPDATE RECORDS
@@ -133,7 +145,7 @@ public class PadSqlUtil extends MySqlHelper{
                 +tenant_table.Sixth_Column+"=\'"+tenant.getNational_ID()+"\', "
                 +tenant_table.Seventh_Column+"=\'"+tenant.getBio()+"\'"
                 +" WHERE id=\'"+ id + "\';";
-        super.updateTable(sql);
+        sqlHelper.updateTable(sql);
     }
     public void UpdateOwner(Owner owner, String id){
         OwnerTable ownerTable = new OwnerTable();
@@ -147,7 +159,7 @@ public class PadSqlUtil extends MySqlHelper{
                 +ownerTable.Seventh_Column+"=\'"+owner.getTell()+"\',"
                 +ownerTable.Eight_Column+"=\'"+owner.getOwner_id()+"\'"
                 +" WHERE id=\'"+ id + "\';";
-        super.updateTable(sql);
+        sqlHelper.updateTable(sql);
     }
     public void UpdateBuilding(Building building,String id){
         BuildingTable buildingTable = new BuildingTable();
@@ -160,36 +172,21 @@ public class PadSqlUtil extends MySqlHelper{
                 +buildingTable.Sixth_Column+"=\'"+building.getLocation()+"\', "
                 +buildingTable.Seventh_Column+"=\'"+building.getNo_of_rooms()+"\'"
                 +" WHERE id=\'"+ id + "\';";
-        super.updateTable(sql);
+        sqlHelper.updateTable(sql);
     }
 
+    //TODO: update javadoc.
     /**
      * <p>Used to select between the different CRIBSearch tables</p>
-     * @param tableNo the table number to be parsed for retrieving the selection<br/>
+     * @param table the table number to be parsed for retrieving the selection<br/>
      *                1-client-test<br/>
      *                2-tenant<br/>
      *                3-owner<br/>
      *                4-building
      * */
-    public ResultSet SelectTable(int tableNo){
-        //TODO: make code better and shorter.
-        String table;
-        switch (tableNo){
-            case 1://client_test table
-                table = "client_test";
-                break;
-            case 2://Tenant table
-                table = "tenant";
-                break;
-            case 3://Owner table
-                table = "owner";
-                break;
-            case 4://Building table
-                table = "building";
-                break;
-            default:
-                table = "client_test";
-        }
-        return super.selectTable(table);
+    public ResultSet selectTable(String table){
+        return sqlHelper.selectTable(table);
     }
+
+
 }
