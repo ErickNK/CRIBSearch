@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mainActivity.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/mainActivity.fxml"));
         Parent root = fxmlLoader.load();
         mainActivityController controller = fxmlLoader.getController();
         controller.initialize(padSql);

@@ -76,7 +76,7 @@
                             <children>
                                 <ImageView fitHeight="400.0" fitWidth="279.0" layoutX="568.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@rsrc/kerry.gif" />
+                                        <Image url="@../rsrc/kerry.gif" />
                                     </image>
                                 </ImageView>
                                <!-- <SpreadsheetView fx:id="spv" layoutX="14.0" layoutY="16.0" prefHeight="466.0" prefWidth="543.0" />-->
