@@ -1,4 +1,4 @@
-package com.flycode.CRIBSearch;
+package com.flycode.CRIBSearch.Controllers;
 
 import com.flycode.CRIBSearch.Dialogs.*;
 import com.flycode.CRIBSearch.PadSql.PadSqlUtil;
@@ -7,25 +7,27 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.controlsfx.control.spreadsheet.SpreadsheetView;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 public class mainActivityController {
-    @FXML ComboBox<String> comboBox;
-    @FXML TableView tableView;
-    @FXML PasswordField password_field;
-    @FXML TextField login_field;
+    @FXML private ComboBox<String> comboBox;
+    @FXML private TableView tableView;
+    @FXML private PasswordField password_field;
+    @FXML private TextField login_field;
     @FXML private Label info_label;
     @FXML private Tab tab_sheets;
     @FXML private Button loadButton;
     @FXML private Button deleteButton;
-    @FXML SpreadsheetView spv;
 
     private ResultSet resultSet;
     private ObservableList<String> tableNames = FXCollections.observableArrayList();
@@ -34,28 +36,44 @@ public class mainActivityController {
     private PadSqlUtil padsql;
     private ResourceBundle dialogResources = ResourceBundle.getBundle("com.flycode.CRIBSearch.resources.dialog", Locale.getDefault());
     private PadDialog padDialog = new PadDialog();
+    private Stage stage;
 
-    public void initialize(PadSqlUtil p) {
+    public void initialize(PadSqlUtil p,Stage primaryStage) {
         this.padsql = p;
+        this.stage = primaryStage;
     }
 
-    public void onClickLoginButton() {
-        info_label.setVisible(true);
+    public void onClickLoginButton() throws Exception{
+        /*info_label.setVisible(true);
         info_label.setText("logging in...");
-        info_label.setTextFill(Color.BLACK);
+        info_label.setTextFill(Color.BLACK);*/
         padsql.setUsername(login_field.getText()).setPass(password_field.getText()).ConnectDB();
         if (padsql.CONNECTION_STATUS) {
+            /*
             tab_sheets.setDisable(false);
             info_label.setText("login Successful");
             info_label.setTextFill(Color.GREEN);
             fillComboBox();
+            */
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/TenantView.fxml"));
+            Parent root = fxmlLoader.load();
+            TenantViewController controller = fxmlLoader.getController();
+            controller.initialize(padsql);
+            callTenantView(root);
             myDialog.showInfo(dialogResources.getString("LoginSuccessTitle"),dialogResources.getString("LoginSuccessMessage"));
+
         } else {
-            tab_sheets.setDisable(true);
+            /*tab_sheets.setDisable(true);
             info_label.setText("Login Not Successful");
-            info_label.setTextFill(Color.RED);
+            info_label.setTextFill(Color.RED);*/
             myDialog.showError(dialogResources.getString("LoginErrorTitle"),dialogResources.getString("LoginErrorMessage"));
         }
+    }
+
+    private void callTenantView(Parent root){
+        stage.setTitle("Tenant View");
+        stage.setScene(new Scene(root,861,572));
+        stage.show();
     }
 
     private void fillComboBox() {

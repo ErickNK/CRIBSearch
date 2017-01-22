@@ -1,5 +1,6 @@
 package com.flycode.CRIBSearch;
 
+import com.flycode.CRIBSearch.Controllers.mainActivityController;
 import com.flycode.CRIBSearch.PadSql.MySqlHelper;
 import com.flycode.CRIBSearch.PadSql.PadSqlUtil;
 import javafx.application.Application;
@@ -17,7 +18,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/mainActivity.fxml"));
         Parent root = fxmlLoader.load();
         mainActivityController controller = fxmlLoader.getController();
-        controller.initialize(padSql);
+        controller.initialize(padSql,primaryStage);
 
         primaryStage.setTitle("CRIBSearch Database");
         primaryStage.setScene(new Scene(root, 861, 572));

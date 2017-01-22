@@ -4,22 +4,32 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
 <?import org.controlsfx.control.StatusBar?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="845.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <TitledPane prefHeight="664.0" prefWidth="243.0" BorderPane.alignment="CENTER">
+      <TitledPane prefHeight="664.0" prefWidth="243.0" text="Details" BorderPane.alignment="CENTER">
          <content>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="203.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox prefHeight="470.0" prefWidth="241.0" spacing="8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fitHeight="203.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
+                        <TextFlow prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TextArea prefHeight="200.0" prefWidth="200.0" />
+                           </children></TextFlow>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
+            </AnchorPane>
          </content></TitledPane>
    </left>
    <top>

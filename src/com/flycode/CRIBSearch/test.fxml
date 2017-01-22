@@ -22,7 +22,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0"
             prefWidth="861.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.flycode.CRIBSearch.mainActivityController">
+            fx:controller="com.flycode.CRIBSearch.Controllers.mainActivityController">
     <TabPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="861.0"
              tabClosingPolicy="UNAVAILABLE">
         <Tab text="Login">

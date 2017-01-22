@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/8.0.66" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.flycode.CRIBSearch.Controllers.TenantViewController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -34,19 +35,28 @@
       </MenuBar>
    </top>
    <left>
-      <TitledPane animated="false" prefHeight="526.0" prefWidth="254.0" text="untitled" BorderPane.alignment="CENTER">
+      <TitledPane animated="false" prefHeight="526.0" prefWidth="254.0" text="Details" BorderPane.alignment="CENTER">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="433.0" prefWidth="252.0" spacing="8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="Tenants Picture:" />
+                        <ImageView fx:id="imageView" fitHeight="115.0" fitWidth="231.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="l_firstname" text="First name:" />
+                        <Label fx:id="l_secondname" text="Second name:" />
+                        <Label fx:id="l_surname" text="Surname:" />
+                        <Label fx:id="l_tell" text="Telephone Number:" />
+                        <Label fx:id="l_nationalID" text="National ID:" />
+                        <Label fx:id="l_bio" text="Bio:" />
+                     </children>
+                  </VBox>
+               </children></AnchorPane>
         </content>
       </TitledPane>
    </left>
    <center>
-      <TableView prefHeight="551.0" prefWidth="703.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
+      <TableView fx:id="tableView" prefHeight="551.0" prefWidth="703.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
