@@ -4,7 +4,7 @@ package com.flycode.CRIBSearch.Entities;
  * <p>Class used to implement the entity Tenant of the CRIBSearch Entity Model.</p>
  * <p>It implements Attributes of the relation <b>Tenant</b> as variables.</p>
  */
-public class Tenant extends PadEntity<Tenant> {
+public class Tenant{
     private int id;
     private String First;
     private String Second;
@@ -12,6 +12,14 @@ public class Tenant extends PadEntity<Tenant> {
     private int Tell;
     private int National_ID;
     private String Bio;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFirst() {
         return First;

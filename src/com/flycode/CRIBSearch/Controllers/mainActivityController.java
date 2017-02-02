@@ -2,6 +2,7 @@ package com.flycode.CRIBSearch.Controllers;
 
 import com.flycode.CRIBSearch.Dialogs.*;
 import com.flycode.CRIBSearch.PadSql.PadSqlUtil;
+import com.flycode.CRIBSearch.SearchEngine.IndexDB;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,35 +45,32 @@ public class mainActivityController {
     }
 
     public void onClickLoginButton() throws Exception{
-        /*info_label.setVisible(true);
-        info_label.setText("logging in...");
-        info_label.setTextFill(Color.BLACK);*/
         padsql.setUsername(login_field.getText()).setPass(password_field.getText()).ConnectDB();
         if (padsql.CONNECTION_STATUS) {
-            /*
-            tab_sheets.setDisable(false);
-            info_label.setText("login Successful");
-            info_label.setTextFill(Color.GREEN);
-            fillComboBox();
-            */
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/TenantView.fxml"));
             Parent root = fxmlLoader.load();
             TenantViewController controller = fxmlLoader.getController();
             controller.initialize(padsql);
             callTenantView(root);
             myDialog.showInfo(dialogResources.getString("LoginSuccessTitle"),dialogResources.getString("LoginSuccessMessage"));
-
+            IndexDataBase(padsql);
         } else {
-            /*tab_sheets.setDisable(true);
-            info_label.setText("Login Not Successful");
-            info_label.setTextFill(Color.RED);*/
             myDialog.showError(dialogResources.getString("LoginErrorTitle"),dialogResources.getString("LoginErrorMessage"));
         }
     }
 
+    private void IndexDataBase(PadSqlUtil p){
+        Thread indexThread = new Thread(() -> {
+            IndexDB iDB = new IndexDB(p);
+            iDB.IndexWholeDB();
+        });
+        indexThread.run();
+        //indexThread.sleep();
+    }
+
     private void callTenantView(Parent root){
         stage.setTitle("Tenant View");
-        stage.setScene(new Scene(root,861,572));
+        stage.setScene(new Scene(root,880,580));
         stage.show();
     }
 
@@ -180,9 +178,8 @@ public class mainActivityController {
             myDialog.showThrowable("Error","Error in loading table.",e);
         }
 
-        /**********************************
-         * TABLE COLUMN ADDED DYNAMICALLY *
-         **********************************/
+
+         //TABLE COLUMN ADDED DYNAMICALLY
         for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
             //We are using non property style for making dynamic table
             final int j = i;
@@ -197,9 +194,8 @@ public class mainActivityController {
 
         }
 
-        /********************************
-         * Data added to ObservableList *
-         ********************************/
+
+         //Data added to ObservableList
         while (resultSet.next()) {
             //Iterate Row
             ObservableList<String> row = FXCollections.observableArrayList();
@@ -214,31 +210,4 @@ public class mainActivityController {
         //FINALLY ADDED TO TableView
         tableView.setItems(data);
     }
-
-    /*private void buildSpreadSheet(String table) throws SQLException{
-        try{
-            resultSet = padsql.selectTable(table);
-        } catch (Exception e){
-            myDialog.showThrowable("Error","Error in loading table.",e);
-        }
-
-        int rowCount = 1;
-        int columnCount = resultSet.getMetaData().getColumnCount();
-        ObservableList<ObservableList<SpreadsheetCell>> rows = FXCollections.observableArrayList();
-        while (resultSet.next()) {
-            //Iterate Row
-            final ObservableList<SpreadsheetCell> list = FXCollections.observableArrayList();
-            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                //Iterate Column
-                list.add(SpreadsheetCellType.STRING.createCell(rowCount, i, 1, 1,resultSet.getString(i)));
-            }
-            rows.add(list);
-            ++rowCount;
-        }
-        GridBase grid = new GridBase(rowCount, columnCount);
-        grid.setRows(rows);
-        spv = new SpreadsheetView();
-        spv.setGrid(grid);
-
-    }*/
 }

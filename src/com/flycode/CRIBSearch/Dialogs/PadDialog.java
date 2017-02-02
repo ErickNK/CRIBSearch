@@ -105,7 +105,7 @@ public class PadDialog extends Stage{
         try {
             new Builder()
                     .create()
-                    .setType("tenantDialog.fxml")
+                    .setType("../fxml/tenantDialog.fxml")
                     .createParent()
                     .setTenant(list,p,mode)
                     .setWindowOwner(owner)
@@ -125,7 +125,7 @@ public class PadDialog extends Stage{
         try {
             new Builder()
                     .create()
-                    .setType("ownerDialog.fxml")
+                    .setType("../fxml/ownerDialog.fxml")
                     .createParent()
                     .setOwner(list,p,mode)
                     .setWindowOwner(owner)
@@ -145,7 +145,7 @@ public class PadDialog extends Stage{
         try {
             new Builder()
                     .create()
-                    .setType("buildingDialog.fxml")
+                    .setType("../fxml/buildingDialog.fxml")
                     .createParent()
                     .setBuilding(list,p,mode)
                     .setWindowOwner(owner)

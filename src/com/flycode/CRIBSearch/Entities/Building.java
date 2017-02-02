@@ -4,7 +4,7 @@ package com.flycode.CRIBSearch.Entities;
  * <p>Class used to implement the entity Building of the CRIBSearch Entity Model.</p>
  * <p>It implements Attributes of the relation <b>Building</b> as variables.</p>
  */
-public class Building extends PadEntity<Building> {
+public class Building{
     private int id;
     private int Registration_id;
     private String Name;
@@ -13,7 +13,17 @@ public class Building extends PadEntity<Building> {
     private String Location;
     private int No_of_rooms;
 
+    //TODO:add date added in entity
     //Setters and Getters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getRegistration_id() {
         return Registration_id;
     }

@@ -2,6 +2,7 @@ package com.flycode.CRIBSearch.Dialogs;
 
 import com.flycode.CRIBSearch.Entities.Building;
 import com.flycode.CRIBSearch.PadSql.PadSqlUtil;
+import com.flycode.CRIBSearch.SearchEngine.IndexDB;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -45,6 +46,7 @@ public class buildingDialogController{
         Building building = new Building();
         try {
             id = (String) ((ObservableList) string).get(0);
+            building.setId(Integer.parseInt((String) ((ObservableList) string).get(0)));
             building.setRegistration_id(Integer.parseInt((String) ((ObservableList) string).get(1)));
             building.setName((String) ((ObservableList) string).get(2));
             building.setOwner_Name((String) ((ObservableList) string).get(3));
@@ -80,8 +82,10 @@ public class buildingDialogController{
     private void commitChanges(){
         if (MODE == 1){
             padsql.addBuilding(building);
+            IndexDB.addBuildingDoc(building);
         }else if (MODE == 2){
             padsql.UpdateBuilding(building, id);
+            IndexDB.updateBuildingDoc(building);
         }else {
             myDialog.showError("ERROR","The MODE for dialog entries is either wrong or NULL");
         }

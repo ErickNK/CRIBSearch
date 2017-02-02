@@ -3,6 +3,7 @@ package com.flycode.CRIBSearch.Dialogs;
 
 import com.flycode.CRIBSearch.Entities.Owner;
 import com.flycode.CRIBSearch.PadSql.PadSqlUtil;
+import com.flycode.CRIBSearch.SearchEngine.IndexDB;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -48,6 +49,7 @@ public class ownerDialogController{
         Owner owner = new Owner();
         try {
             id = (String) ((ObservableList) string).get(0);
+            owner.setId(Integer.parseInt((String) ((ObservableList) string).get(0)));
             owner.setFirst((String) ((ObservableList) string).get(1));
             owner.setSecond((String) ((ObservableList) string).get(2));
             owner.setSurname((String) ((ObservableList) string).get(3));
@@ -86,8 +88,10 @@ public class ownerDialogController{
     private void commitChanges(){
         if (MODE == 1){
             padSql.addOwner(owner);
+            IndexDB.addOwnerDoc(owner);
         }else if (MODE == 2){
             padSql.UpdateOwner(owner, id);
+            IndexDB.updateOwnerDoc(owner);
         }else {
             myDialog.showError("ERROR","The MODE for dialog entries is either wrong or NULL");
         }

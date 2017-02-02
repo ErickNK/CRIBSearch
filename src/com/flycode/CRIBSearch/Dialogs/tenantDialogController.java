@@ -2,6 +2,7 @@ package com.flycode.CRIBSearch.Dialogs;
 
 import com.flycode.CRIBSearch.Entities.Tenant;
 import com.flycode.CRIBSearch.PadSql.PadSqlUtil;
+import com.flycode.CRIBSearch.SearchEngine.IndexDB;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class tenantDialogController{
@@ -45,6 +47,7 @@ public class tenantDialogController{
         Tenant tenant = new Tenant();
         try {
             id = (String) ((ObservableList) string).get(0);
+            tenant.setId(Integer.parseInt((String) ((ObservableList) string).get(0)));
             tenant.setFirst((String) ((ObservableList) string).get(1));
             tenant.setSecond((String) ((ObservableList) string).get(2));
             tenant.setSurname((String) ((ObservableList) string).get(3));
@@ -80,8 +83,11 @@ public class tenantDialogController{
     private void commitChanges(){
         if (MODE == 1){
             padsql.addTenant(tenant);
+            IndexDB.addTenantDoc(tenant);
         }else if (MODE == 2){
+            //TODO: try removing the id variable requirement
             padsql.UpdateTenant(tenant,id);
+            IndexDB.updateTenantDoc(tenant);
         }else {
             myDialog.showError("ERROR","The MODE for dialog entries is either wrong or NULL");
         }

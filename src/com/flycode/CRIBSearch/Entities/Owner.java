@@ -4,7 +4,7 @@ package com.flycode.CRIBSearch.Entities;
  * <p>Class used to implement the entity Owner of the CRIBSearch Entity Model.</p>
  * <p>It implements Attributes of the relation <b>Owner</b> as variables.</p>
  */
-public class Owner extends PadEntity<Owner> {
+public class Owner {
     private int id;
     private String First;
     private String Second;
@@ -13,6 +13,14 @@ public class Owner extends PadEntity<Owner> {
     private String Bio;
     private int Tell;
     private int Owner_id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFirst() {
         return First;
